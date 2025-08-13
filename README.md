@@ -7,25 +7,26 @@
 ```
 ├── src/                    # Source files
 │   ├── main/              # Main thesis files
-│   │   └── tieuluan.tex   # File LaTeX chính
+│   │   └── thesis_main.tex # Main LaTeX thesis file
 │   └── presentation/      # Presentation files
-│       └── Slide_Baocao.tex # File slides báo cáo
+│       └── presentation_slides.tex # Presentation slides
 ├── assets/                # All media files
 │   ├── images/           # Images and figures
-│   │   ├── H1.png, H2.png, H3.png
-│   │   ├── Hinh1.png, Hinh2.png, Hinh3.png
-│   │   ├── frame3.png, frame4.png
-│   │   └── image1.jpg
+│   │   ├── chapter-header-1.png, chapter-header-2.png, chapter-header-3.png
+│   │   ├── figure-1.png, figure-2.png, figure-3.png
+│   │   ├── background-frame-3.png, background-frame-4.png
+│   │   └── main-content-image.jpg
 │   └── logos/            # University logos
-│       ├── CTU_Body.png, CTU_Title.png, CTU_Clusion.png
-│       ├── DHCT.png
-│       └── logomatlab.png
+│       ├── ctu-body.png, ctu-title.png, ctu-conclusion.png
+│       ├── university-logo.png
+│       └── matlab-logo.png
 ├── styles/               # LaTeX style files
-│   ├── thesis.cls        # Class file cho định dạng luận văn
+│   ├── thesis.cls        # Main document class
 │   ├── lyk-z13.sty
 │   ├── vnextsizes.sty
-│   └── vntypeset_t5_c.tex
+│   └── vietnamese-typeset.tex
 ├── output/               # Generated files (PDF, etc.)
+│   └── thesis_main.pdf   # Compiled thesis
 └── docs/                 # Documentation
 ```
 
@@ -35,7 +36,7 @@ Từ thư mục gốc, sử dụng LaTeX để compile:
 
 ```bash
 cd src/main
-pdflatex tieuluan.tex
+pdflatex thesis_main.tex
 # Output sẽ được tạo trong thư mục hiện tại
 # Có thể copy PDF sang thư mục output/
 ```
