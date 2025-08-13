@@ -1,3 +1,30 @@
+\chapter{Một số dạng kiểm định thống kê}
+
+
+
+
+\section{Kiểm đinh Pearson}
+\subsection{Hàm phân phối tích luỹ}
+\begin{dn}
+ Nội dung định nghĩa viết vào đây
+\end{dn}
+
+\begin{equation}
+    F(x) = P(X<x), \; \forall x \in \mathbb{R}
+\end{equation}
+
+\begin{matlab}
+\begin{lstlisting}
+
+function [chi_P, chi_J] = pearson_test_V2(N,n)
+
+    % Random variables
+    Z = [1 2 3 4 5];
+
+    % Probability corresponding
+    PZ = [0.06 0.23 0.35 0.27 0.09];
+
+    % cho nhich len 0.01 de khong cham dau mut
     z = [0 1 1.01 2 2.01 3 3.01 4 4.01 5 5.01 6];
 
     % Cummulative
@@ -41,7 +68,9 @@
 end
 
 \end{lstlisting}
-\end{lstlisting}
+\end{matlab}
+
+
 
 \begin{figure}[h!]
     \centering
@@ -50,7 +79,8 @@ end
     \label{fig:image1-matlab}
 \end{figure}
 
-\begin{lstlisting}[language=Matlab]
+
+\begin{matlab}
     \begin{lstlisting}
 function Ngocppmohinh(c,j1,j2)
     %UNTITLED Summary of this function goes here
@@ -64,6 +94,7 @@ function Ngocppmohinh(c,j1,j2)
 
     % Import the data
     singletons = readtable("singletons.xlsx");
+
 
     % Ve cac doi tuong thanh phan
 
@@ -98,3 +129,69 @@ function Ngocppmohinh(c,j1,j2)
         text(x(t+1)-.9, ymax-4*(i-1)-2+.4, [num2str(singletons{hi(t),5})]);
         end % t=1:ni
     end % for i=1:numpara
+
+        % Ve nut ket thuc
+        plot((xmin+xmax)/2,ymin,'ob');
+        hold off
+        
+        % Chen cac 
+        title('Graph of the clique Singletons')
+        axis([xmin xmax ymin ymax+1])
+        
+        
+        % Ve he truc hoac khong
+        if c==0
+            axis off
+        else
+            grid
+        end % if c==0
+        figure(1)
+
+end % for function
+    \end{lstlisting}
+\end{matlab}
+
+\begin{dl}
+ Nội dung định lý viết vào đây   
+\end{dl}
+
+\cm{
+Nội dung CM viết vào đây.
+}
+
+\begin{tc}
+    
+\end{tc}
+
+\begin{md}
+    
+\end{md}
+
+\begin{cy}
+    
+\end{cy}
+
+\begin{vd}
+    
+\end{vd}
+
+\begin{nx}
+    
+\end{nx}
+
+\begin{bd}
+    
+\end{bd}
+\subsection{Tiểu mục 2}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.3\linewidth]{../../assets/images/figure-1.png}
+    \caption{Hình minh họa 1}
+    \label{fig:enter-label}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% nội dung này có thể tham khảo giáo trình ĐSTT và HH2
+\section{Mục 2}
+\subsection{Tiểu mục 1}
+
+\subsection{Tiểu mục 2}
