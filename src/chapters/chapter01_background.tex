@@ -1,0 +1,100 @@
+\chapter{Kiến thức chuẩn bị}
+\setcounter{page}{1}
+\pagenumbering{arabic}
+Nội dung này được tham khảo và tổng hợp từ các tài liệu tham khảo \cite{1}, \cite{2} và \cite{5}. 
+
+
+\section{Mục 1 không có dấu chấm cuối dòng}
+\subsection{Tiểu mục 1 không có dấu chấm cuối dòng}
+
+Mỗi đoạn diễn đạt cho mỗi ý bao gồm nhiều câu. Mỗi câu phải đầy đủ cú pháp: S + V + O (nếu có).
+
+Qua đoạn mới phải thụt đầu dòng bằng cách chừa 1 dòng trống trong Latex. Thông thường người ta rất hạn chế sử dụng $\setminus\setminus$ để xuống dòng. 
+\begin{definition}
+ Nội dung định nghĩa viết vào đây
+\end{definition}
+
+\[ \int_{x=0}^5 f_X (x) {\rm d}x=1 \]
+
+\begin{definition}
+ Nội dung định nghĩa viết vào đây có thể sửa lại
+\end{definition}
+
+\begin{theorem}
+ Nội dung định lý viết vào đây   
+\end{theorem}
+
+\begin{proof}
+Nội dung CM viết vào đây.
+\end{proof}
+
+\subsection{Tiểu mục 2}
+%%%%%%%%%Chèn bảng
+
+\begin{table}[ht]
+ \caption{\textbf{Bảng minh họa 1}}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+     STT    & Họ và tên & Kiểm tra & Thi & Tổng\\
+      \hline
+     1    & Nguyễn Văn A &  &  & \\
+      \hline
+      2   &  &  &  & \\
+       \hline
+         &  &  &  & \\
+       \hline
+    \end{tabular} 
+    %\label{tab:my_label}
+\end{table}
+
+%%%%%%%%%%%%%Dạng tùy chỉnh kích thước cột
+\begin{table}[ht]
+ \caption{\textbf{Bảng minh họa 2}}
+ \centering
+\begin{tabular}{|c|l|l|l|c|c|}
+		\hline
+		\textbf{Stt} &\textbf{Tên bài báo} & \textbf{Tác giả/nhóm tác giả}
+		& \textbf{Tên tạp chí} &\textbf{Số tạp chí} & \textbf{Năm xuất bản}
+		\\
+		\hline
+		1 &   &  & &  & \\
+		\hline
+	2 &   &  & &  & \\
+		\hline
+        3 &   &  & &  & \\
+		\hline
+	\end{tabular}
+    \end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% nội dung này có thể tham khảo giáo trình ĐSTT và HH2
+\section{Mục 2}
+\subsection{Tiểu mục 1}
+
+\subsection{Tiểu mục 2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Một số dạng kiểm định thống kê}
+
+\section{Kiểm đinh Pearson}
+\subsection{Hàm phân phối tích luỹ}
+\begin{definition}
+ Nội dung định nghĩa viết vào đây
+\end{definition}
+
+\begin{equation}
+    F(x) = P(X<x), \; \forall x \in \mathbb{R}
+\end{equation}
+
+\begin{lstlisting}[language=Matlab]
+\begin{lstlisting}
+
+function [chi_P, chi_J] = pearson_test_V2(N,n)
+
+    % Random variables
+    Z = [1 2 3 4 5];
+
+    % Probability corresponding
+    PZ = [0.06 0.23 0.35 0.27 0.09];
+
+    % cho nhich len 0.01 de khong cham dau mut
