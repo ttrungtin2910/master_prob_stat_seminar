@@ -19,6 +19,25 @@
 *.bak
 *.backup
 
+# Output directory (except PDF)
+output/*.aux
+output/*.bbl
+output/*.bcf
+output/*.blg
+output/*.fdb_latexmk
+output/*.fls
+output/*.idx
+output/*.ilg
+output/*.ind
+output/*.lof
+output/*.log
+output/*.lot
+output/*.out
+output/*.synctex.gz
+output/*.synctex(busy).gz
+output/*.toc
+output/*.run.xml
+
 # OS generated files
 .DS_Store
 .DS_Store?

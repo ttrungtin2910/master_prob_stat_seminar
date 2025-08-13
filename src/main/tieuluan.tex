@@ -1,4 +1,4 @@
-\documentclass[a4paper,oneside]{thesis}
+\documentclass[a4paper,oneside]{../../styles/thesis}
 \usepackage[utf8]{vietnam}
 \renewcommand{\rmdefault}{utm}
 \renewcommand{\sfdefault}{uhv}
@@ -39,7 +39,7 @@
 \usepackage{wallpaper} 
 \usepackage{fancybox}
 \usepackage {imakeidx}
-\input vntypeset_t5_c.tex
+\input ../../styles/vntypeset_t5_c.tex
 %\input diagxy
 \newlength{\defbaselineskip}
 \setlength{\defbaselineskip}{\baselineskip}
@@ -73,7 +73,7 @@
  breakatwhitespace=true,
  tabsize=3
 }
-\newtheorem{matlab}{\includegraphics[scale=.11,bb= 500 300 50 250]{logomatlab.png}M.}[chapter]
+\newtheorem{matlab}{\includegraphics[scale=.11,bb= 500 300 50 250]{../../assets/logos/logomatlab.png}M.}[chapter]
 
 
 
@@ -91,7 +91,7 @@
 %\dominitoc
 %\pagestyle{myheadings}
 %\pagenumbering{arabic}
-\ThisCenterWallPaper{1}{frame4.png}
+\ThisCenterWallPaper{1}{../../assets/images/frame4.png}
 
 \thispagestyle{empty}
 \begin{titlepage}
@@ -103,7 +103,7 @@
 \hspace{4.3cm} {\bf\fontsize{16pt}{16}\selectfont BỘ MÔN TOÁN HỌC}\\
 
 \begin{figure}[h!]
-\hspace{5cm} \includegraphics[width=40mm]{DHCT.png}
+\hspace{5cm} \includegraphics[width=40mm]{../../assets/logos/DHCT.png}
 \end{figure}
 
 \vspace*{0.5cm}
@@ -383,7 +383,7 @@ end
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=1\linewidth]{image1.jpg}
+    \includegraphics[width=1\linewidth]{../../assets/images/image1.jpg}
     \caption{Hình minh họa 1}
     \label{fig:image1-matlab}
 \end{figure}
@@ -494,7 +494,7 @@ Nội dung CM viết vào đây.
 \subsection{Tiểu mục 2}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.3\linewidth]{Hinh1.png}
+    \includegraphics[width=0.3\linewidth]{../../assets/images/Hinh1.png}
     \caption{Hình minh họa 1}
     \label{fig:enter-label}
 \end{figure}
@@ -524,7 +524,7 @@ Nội dung này được tham khảo và tổng hợp từ các tài liệu tham
     % Hình thứ nhất
     \begin{minipage}{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Hinh2.png}
+        \includegraphics[width=\textwidth]{../../assets/images/Hinh2.png}
         \caption{Hình 1}
         \label{fig:image1}
     \end{minipage}
@@ -532,7 +532,7 @@ Nội dung này được tham khảo và tổng hợp từ các tài liệu tham
     % Hình thứ hai
     \begin{minipage}{0.45\textwidth}
         \centering
-        \includegraphics[width=0.7\textwidth]{Hinh3.png}
+        \includegraphics[width=0.7\textwidth]{../../assets/images/Hinh3.png}
         \caption{Hình 2}
         \label{fig:image2}
     \end{minipage}
@@ -545,13 +545,13 @@ Nội dung này được tham khảo và tổng hợp từ các tài liệu tham
     % Hình thứ nhất
     \begin{minipage}{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Hinh2.png}
+        \includegraphics[width=\textwidth]{../../assets/images/Hinh2.png}
           \end{minipage}
     \hfill
     % Hình thứ hai
     \begin{minipage}{0.45\textwidth}
         \centering
-        \includegraphics[width=0.7\textwidth]{Hinh3.png}
+        \includegraphics[width=0.7\textwidth]{../../assets/images/Hinh3.png}
     \end{minipage}
     \caption{Hình đôi}
         \label{fig:image3}
@@ -568,7 +568,7 @@ Nội dung này được tham khảo và tổng hợp từ các tài liệu tham
 \noindent % Để loại bỏ thụt lề đầu dòng
 \begin{minipage}{0.4\textwidth} % Phần hình ảnh (40% chiều rộng trang)
     \centering
-    \includegraphics[width=\textwidth]{Hinh1.png} % Đường dẫn tới ảnh
+    \includegraphics[width=\textwidth]{../../assets/images/Hinh1.png} % Đường dẫn tới ảnh
     \captionof{figure}{Hình minh họa} % Chú thích cho hình
     \label{fig:image}
 \end{minipage}%
