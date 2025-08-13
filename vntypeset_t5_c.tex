@@ -1,0 +1,218 @@
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{makeidx}
+%\makeindex[columns=2, title=\begin{center} Các ký hiệu dùng trong luận án \end{center}]
+\makeindex
+%\pagestyle{headings}
+\topmargin=-1.5cm
+\textwidth=15.5cm
+\textheight=24cm
+\headheight=2.5ex
+\headsep=0.85cm
+\oddsidemargin=1.cm
+\evensidemargin=-.4cm
+\parskip=0.7ex plus0.5ex minus 0.5ex
+\baselineskip=17pt plus2pt minus2pt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\catcode`@=11
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\font\manual=manfnt scaled 1200
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\blackbox{\rule{1ex}{0.25ex}\rule{0.25ex}{1.25ex}}
+\def\vuongden{\makebox[0.52em]{\raisebox{-.07ex}{\blackbox}}}
+\def\vuong{$\Box$\llap{\vuongden}}
+\def\fordbend{{\manual\char127}}
+\def\ford@nger{\smallbreak\begingroup\clubpenalty=10000
+\def\par{\endgraf\endgroup\smallbreak}\noindent\hang\hangafter=-2
+\hbox to1pt{\hskip-1.2\hangindent\fordbend\hfill}}
+\outer\def\fordanger{\ford@nger}
+\def\enddanger{\endgraf\endgroup}
+\newcommand{\remark}{\par\noindent{{\sc Chú ý }.}\rm\,~}
+\gdef\contentsname{Mục lục}
+\gdef\lmdname{Mở đầu}
+\gdef\lmd{\chapter*{%
+\lmdname\markboth{\protect\it{\lmdname}}
+{\protect\it{\lmdname}}}%
+\addcontentsline{toc}{chapter}{\lmdname}}
+
+\gdef\lctname{Lời cảm ơn}
+\gdef\lct{\chapter*{%
+\lctname\markboth{\protect\it{\lctname}}
+{\protect\it{\lctname}}}%
+}
+%\addcontentsline{toc}{chapter}{\lctname}}
+
+\gdef\lcdname{Lời cam đoan}
+\gdef\lcd{\chapter*{%
+\lcdname\markboth{\protect\it{\lcdname}}
+{\protect\it{\lcdname}}}%
+}
+%\addcontentsline{toc}{chapter}{\lcdname}}
+
+\gdef\lkname{Lời kết}
+\gdef\lk{\chapter*{%
+\lkname\markboth{\protect\it{\lkname}}
+{\protect\it{\lkname}}}%
+\addcontentsline{toc}{chapter}{\lkname}}
+
+\gdef\chaptername{Chương}
+\renewcommand\listfigurename{Danh sách hình}
+\renewcommand\listtablename{Danh sách bảng}
+\renewcommand\appendixname{Phụ lục}
+\gdef\appendname{Phụ lục}
+\gdef\append{\chapter*{%
+\appendname\markboth{\protect\it{\appendname}}
+{\protect\it{\appendname}}}%
+\addcontentsline{toc}{chapter}{\appendname}}
+\gdef\bibname{Tài liệu tham khảo}
+\font\quan=cmbxti10 scaled 1200
+%=============================
+% cac dinh ly cho phan mo dau
+%=============================
+\newtheorem{dl}{Định lí}[chapter]
+\newenvironment{dinhli}{\begin{dl}\rm}{\end{dl}}
+\newtheorem{md}{Mệnh đề}[chapter]
+\newenvironment{menhde}{\begin{md}\rm}{\end{md}}
+\newtheorem{hq}{Hệ quả}[chapter]
+\newenvironment{hequa}{\begin{hq}\rm}{\end{hq}}
+\newtheorem{bd}{Bổ đề}[chapter]
+\newenvironment{bode}{\begin{bd}\rm}{\end{bd}}
+\newtheorem{td}{Tiên đề}
+\newenvironment{tiende}{\begin{td}\rm}{\end{td}}
+\theoremstyle{definition}
+\newtheorem{kn}{Khái niệm}[chapter]
+\newenvironment{khainiem}{\begin{kn}\rm}{\end{kn}}
+\newtheorem{nx}{Nhận xét}[chapter]
+\newenvironment{nxet}{\begin{nx}\rm}{\end{nx}}
+\newtheorem{dn}{Định nghĩa}[chapter]
+\newenvironment{dnghia}{\begin{dn}\rm}{\end{dn}}
+\newtheorem{cy}{Chú ý}[chapter]
+\newenvironment{chuy}{\begin{cy}\rm}{\end{cy}}
+\newtheorem{vd}{Ví dụ}[chapter]
+\newenvironment{vidu}{\begin{vd}\rm}{\end{vd}}
+%\newenvironment{dinhly}{\begin{dl}\it}{\end{dl}}
+%\newenvironment{dinhnghia}{\begin{dn}\rm}{\end{dn}}
+\newtheorem{tc}{Tính chất}[chapter]
+\newenvironment{tinhchat}{\begin{tc}\it}{\end{tc}}
+%\newenvironment{menhde}{\begin{md}\it}{\end{md}}
+%\newenvironment{vidu}{\begin{vd}\rm}{\hfill $\lhd$\nolinebreak\end{vd}}
+%\newenvironment{baitap}{\begin{bta}\rm}{\nolinebreak\end{bta}}
+%\newenvironment{bode}{\begin{bd}\it}{\end{bd}}
+\newcommand{\cm}[1]{\bf\noindent{\noindent{Chứng minh}.~}%
+\rm#1\hfill \rule{1ex}{1ex}\medbreak}
+\newcommand{\cmdl}[2]{\bf\noindent{Chứng minh {#1}.~}%
+\rm#2\hfill \rule{2.5mm}{2.5mm}\medbreak}
+\newcommand{\cmbd}[2]{\bf\noindent{Chứng minh {#1}.~}%
+\rm#2\hfill \rule{1ex}{1ex}\medbreak}
+\newcommand{\solve}{\par\noindent{\sc Giải.}\,~}
+%\newenvironment{hequa}{\begin{hq}\it}{\end{hq}}
+\newcounter{lk}
+\newenvironment{lietke}{\begin{list}{\rm(\roman{lk})}{\usecounter{lk}%
+\setlength{\topsep}{0ex plus0.1ex}%
+\setlength{\labelwidth}{1cm}%
+\setlength{\itemsep}{0ex plus0.1ex}%
+\setlength{\itemindent}{0.5cm}%
+}}{\end{list}}
+\newcounter{lka}
+\newenvironment{lietkea}{\begin{list}{\rm(\alph{lka})}{\usecounter{lka}%
+\setlength{\topsep}{0ex plus0.1ex}%
+\setlength{\labelwidth}{1cm}%
+\setlength{\itemsep}{0ex plus0.1ex}%
+\setlength{\itemindent}{0.5cm}%
+}}{\end{list}}
+\renewcommand\indexname{Chỉ mục}
+\gdef\introname{Giới thiệu}
+\gdef\introduction{\chapter*{%
+\introname\markboth{\protect\it{\introname}}
+{\protect\it{\introname}}}%
+\addcontentsline{toc}{chapter}{\introname}}
+\newcounter{danhso}
+\setcounter{danhso}{0}
+\def\num{\addtocounter{danhso}{1}\par{\rm\arabic{danhso}.}\hskip.4em\relax}
+\def\lnum{\addtocounter{danhso}{1}\par{\rm\arabic{danhso}\setcounter{danhso}{0}.}\hskip.4em\relax}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\def\underarrow#1{\mathop{\setlength{\unitlength}{1cm}\begin{picture}(#1,0)\vector(1,0){#1}\end{picture}}}%
+\def\realset{{I\!\! R}}%
+\def\naturalset{{I\!\! N}}%
+\def\therefore{\setlength{\unitlength}{2pt}%
+\mbox{\raisebox{-0.5ex}{\begin{picture}(2,2)%
+\put(2,0){$\cdot$}%
+\put(0,0){$\cdot$}%
+\put(1,2){$\cdot$}\end{picture}}\,}}%
+\def\dautpmat#1#2{{$\displaystyle\int\limits_{#1}$\hskip#2}\llap{$\displaystyle\int$}}%
+\def\surfoint#1#2#3{\mbox{\dautpmat{#1}{#2}\llap{$\bigcirc$\hskip#3}}}%
+\def\hoitudeu{\mbox{%
+\setlength{\unitlength}{1cm}%
+\begin{picture}(0.7,0.5)%
+\put(0,0.2){\vector(1,0){0.7}}%
+\put(0,0.05){\vector(1,0){0.7}}%
+\end{picture}}}%
+\def\Tunit{\mbox{$\bf\hat{T}$}}%
+\def\Bunit{\mbox{$\bf\hat{B}$}}%
+\def\Nunit{\mbox{$\bf\hat{N}$}}%
+\def\nacntoint{{$\circlearrowright$\hskip0.06cm}\llap{$\displaystyle\int$}}
+\def\noint#1{\hbox{\nacntoint}_{\!\!\!#1}\,}
+\def\pacntoint{{$\circlearrowleft$}\llap{$\displaystyle\int$}}
+\def\point#1{\hbox{\pacntoint}_{\!\!\!#1}\,}
+\def\nacntointl{{\small$\circlearrowright$}\llap{$\int$}}
+\def\nointl#1{\hbox{\nacntointl}_{#1}\,}
+\def\pacntointl{{\small$\circlearrowleft$\hskip-0.04cm}\llap{$\int$}}
+\def\pointl#1{\hbox{\pacntointl}_{\,#1}\,}
+\def\dauboihai{\mathop{\int\!\!\!\int}}
+\def\tpboihai#1{\dauboihai\limits_{\hskip-0.6em#1}}
+\def\dauboiba{\mathop{\int\!\!\!\int\!\!\!\int}}
+\def\tpboiba#1{\dauboiba\limits_{\hskip-0.6em#1}}
+\newcounter{lkl}
+\newenvironment{lietkel}{\begin{list}{\rm[\arabic{lkl}]}{\usecounter{lkl}%
+\setlength{\topsep}{0ex plus0.1ex}%
+\setlength{\labelwidth}{1cm}%
+\setlength{\itemsep}{0ex plus0.1ex}%
+\setlength{\itemindent}{0cm}%
+}}{\end{list}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{donvihoanh}
+\newcounter{donvitung}
+\newbox\unitnum
+\gdef\vetruchoanh#1#2#3#4#5{%
+\setlength{\unitlength}{#1pt}
+\count1=#2\count2=#2
+\multiply\count1 by 10
+\advance\count2 by 1
+\put(0,0){\vector(1,0){\count2}}
+{\linethickness{0.1pt}\multiput(0,0)(0.1,0){\count1}{\setlength{\unitlength}{10pt}\line(0,-1){0.3}}}
+\multiput(1,0)(1,0){#2}{\setlength{\unitlength}{10pt}\line(0,-1){0.6}}
+\setcounter{donvihoanh}{#3}
+\multiput(0,0)(1,0){\count2}{\ifnum\arabic{donvihoanh}=0
+\tiny\kern-0.5ex\raise-5ex\hbox{\arabic{donvihoanh}}\else
+\tiny\setbox\unitnum=\hbox{\arabic{donvihoanh}}
+\hspace{-0.72\wd\unitnum}\raise-5ex\hbox{\arabic{donvihoanh}}\fi\addtocounter{donvihoanh}{#4}}
+\put(\count2,0){\tiny\raise-5ex\hbox{\footnotesize$#5$}}
+}
+\gdef\vetructung#1#2#3#4#5{%
+\setlength{\unitlength}{#1pt}
+\count1=#2\count2=#2
+\multiply\count1 by 10
+\advance\count2 by 1
+\put(0,0){\vector(0,1){\count2}}
+{\linethickness{0.1pt}\multiput(0,0)(0,0.1){\count1}{\setlength{\unitlength}{10pt}\line(-1,0){0.3}}}
+\multiput(0,1)(0,1){#2}{\setlength{\unitlength}{10pt}\line(-1,0){0.6}}
+\setcounter{donvitung}{#3}
+\multiput(0,0)(0,1){\count2}{\tiny\setbox\unitnum=\hbox{\arabic{donvitung}}
+\kern-5.5ex\hspace{-0.65\wd\unitnum}\raise-0.85ex\hbox{\arabic{donvitung}}\addtocounter{donvitung}{#4}}
+\put(0,\count2){\kern-2.5ex\tiny\raise-1ex\hbox{\footnotesize$#5$}}
+}
+%#1: don vi duoc chon tren truc (tinh bang so pt).
+%#2: so khoang can bieu dien tren truc.
+%#3: vi tri diem bieu dien nho nhat tren truc.
+%#4: so don vi cua moi khoang.
+%#5: ten bien tren truc.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
