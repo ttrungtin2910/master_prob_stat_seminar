@@ -1,5 +1,4 @@
 \chapter{Kiến thức chuẩn bị}
-Nội dung chương này được tổng hợp và diễn giải lại từ các nguồn \cite{nguyen1999, tran_nguyen1982, casella2002} nhằm giúp người đọc nắm vững những khái niệm cốt lõi sẽ dùng ở các chương tiếp theo.
 
 \section{Không gian xác suất và biến ngẫu nhiên}
 
@@ -60,21 +59,21 @@ Hàm phân phối của $X$ là $F_X(x)=P(X\le x)$. Với $X$ rời rạc: $F_X(
 \[
 \mathbb{E}[X]=\begin{cases} \sum_x x\,p_X(x), & \text{rời rạc},\\[4pt]
 \int_{-\infty}^{\infty} x\,f_X(x)\,dx, & \text{liên tục}, \end{cases}
-\qquad \Var(X)=\mathbb{E}\big[(X-\mathbb{E}X)^2\big].
+\qquad \text{Var}(X)=\mathbb{E}\big[(X-\mathbb{E}X)^2\big].
 \]
 \begin{tinhchat}
-$\mathbb{E}(aX+b)=a\mathbb{E}X+b$; nếu $X,Y$ độc lập thì $\Var(X+Y)=\Var(X)+\Var(Y)$.
+$\mathbb{E}(aX+b)=a\mathbb{E}X+b$; nếu $X,Y$ độc lập thì $\text{Var}(X+Y)=\text{Var}(X)+\text{Var}(Y)$.
 \end{tinhchat}
 
 \subsubsection*{Hiệp phương sai và một số công thức quan trọng}
 \begin{dn}[Hiệp phương sai]
-Với hai đại lượng ngẫu nhiên khả tích $X,Y$, đặt $\Cov(X,Y)=\mathbb{E}\big[(X-\mathbb{E}X)(Y-\mathbb{E}Y)\big]$. Khi $X$ và $Y$ độc lập thì $\Cov(X,Y)=0$.
+Với hai đại lượng ngẫu nhiên khả tích $X,Y$, đặt $\text{Cov}(X,Y)=\mathbb{E}\big[(X-\mathbb{E}X)(Y-\mathbb{E}Y)\big]$. Khi $X$ và $Y$ độc lập thì $\text{Cov}(X,Y)=0$.
 \end{dn}
 \begin{dl}[Các công thức phương sai]
 \begin{lietke}
-  \item $\Var(X)=\mathbb{E}(X^2)-[\mathbb{E}(X)]^2$.
-  \item $\Var(aX)=a^2\Var(X)$ và $\Var(X+a)=\Var(X)$ với mọi hằng số $a$.
-  \item $\Var(X+Y)=\Var(X)+\Var(Y)+2\,\Cov(X,Y)$; đặc biệt, nếu $X$ và $Y$ độc lập thì $\Var(X+Y)=\Var(X)+\Var(Y)$.
+  \item $\text{Var}(X)=\mathbb{E}(X^2)-[\mathbb{E}(X)]^2$.
+  \item $\text{Var}(aX)=a^2\text{Var}(X)$ và $\text{Var}(X+a)=\text{Var}(X)$ với mọi hằng số $a$.
+  \item $\text{Var}(X+Y)=\text{Var}(X)+\text{Var}(Y)+2\,\text{Cov}(X,Y)$; đặc biệt, nếu $X$ và $Y$ độc lập thì $\text{Var}(X+Y)=\text{Var}(X)+\text{Var}(Y)$.
 \end{lietke}
 \end{dl}
 
@@ -82,79 +81,436 @@ Với hai đại lượng ngẫu nhiên khả tích $X,Y$, đặt $\Cov(X,Y)=\ma
 
 \subsection{Xác suất có điều kiện}
 \begin{dn}[Xác suất có điều kiện]
-Với các biến cố $A,B$ và $P(A)>0$,
+Với các biến cố $A,B$ và $P(A)>0$, xác suất có điều kiện của $B$ khi biết $A$ đã xảy ra được định nghĩa bởi:
 \[
-P(B\mid A)=\frac{P(A\cap B)}{P(A)};\quad 0\le P(B\mid A)\le1,\; P(A\mid A)=1,\; P(B^c\mid A)=1-P(B\mid A).
+P(B\mid A)=\frac{P(A\cap B)}{P(A)}
+\]
+\end{dn}
+
+\begin{tinhchat}
+Các tính chất cơ bản của xác suất có điều kiện:
+\begin{itemize}
+    \item $0 \leq P(B\mid A) \leq 1$ với mọi biến cố $B$
+    \item $P(A\mid A) = 1$ (tính phản xạ)
+    \item $P(B^c\mid A) = 1 - P(B\mid A)$ (tính bù)
+    \item Nếu $B_1, B_2, \ldots$ là các biến cố đôi một rời nhau thì $P(\bigcup_{i=1}^{\infty} B_i \mid A) = \sum_{i=1}^{\infty} P(B_i \mid A)$
+\end{itemize}
+\end{tinhchat}
+
+\subsubsection*{Quy tắc nhân xác suất}
+\begin{dl}[Quy tắc nhân]
+Với các biến cố $A_1, A_2, \ldots, A_n$ sao cho $P(A_1 \cap A_2 \cap \cdots \cap A_{n-1}) > 0$, ta có:
+\[
+P(A_1 \cap A_2 \cap \cdots \cap A_n) = P(A_1) \cdot P(A_2 \mid A_1) \cdot P(A_3 \mid A_1 \cap A_2) \cdots P(A_n \mid A_1 \cap A_2 \cap \cdots \cap A_{n-1})
+\]
+\end{dl}
+
+\subsubsection*{Độc lập có điều kiện}
+\begin{dn}[Độc lập có điều kiện]
+Hai biến cố $A$ và $B$ được gọi là độc lập có điều kiện với biến cố $C$ (với $P(C) > 0$) nếu:
+\[
+P(A \cap B \mid C) = P(A \mid C) \cdot P(B \mid C)
 \]
 \end{dn}
 
 \subsection{Kỳ vọng có điều kiện}
-\begin{dn}[Kỳ vọng có điều kiện]
-Với biến cố $A$ có $P(A)>0$ và biến ngẫu nhiên khả tích $Y$,
+\begin{dn}[Kỳ vọng có điều kiện với biến cố]
+Với biến cố $A$ có $P(A)>0$ và biến ngẫu nhiên khả tích $Y$, kỳ vọng có điều kiện của $Y$ khi biết $A$ đã xảy ra được định nghĩa bởi:
 \[
-\mathbb{E}(Y\mid A)=\frac{1}{P(A)}\int_A Y\,dP.
+\mathbb{E}(Y\mid A)=\frac{1}{P(A)}\int_A Y\,dP
 \]
 \end{dn}
+
+\begin{dn}[Kỳ vọng có điều kiện với biến ngẫu nhiên]
+Với biến ngẫu nhiên $X$ và $Y$ khả tích, kỳ vọng có điều kiện $\mathbb{E}(Y \mid X)$ là một biến ngẫu nhiên đo được đối với $\sigma(X)$ thỏa mãn:
+\[
+\int_A \mathbb{E}(Y \mid X) \, dP = \int_A Y \, dP
+\]
+với mọi $A \in \sigma(X)$.
+\end{dn}
+
 \begin{tinhchat}
-Tuyến tính theo hằng số; nếu $X$ độc lập với $A$ thì $\mathbb{E}(X\mid A)=\mathbb{E}X$; và tính tháp theo $\sigma$-đại số.
+Các tính chất quan trọng của kỳ vọng có điều kiện:
+\begin{itemize}
+    \item \textbf{Tính tuyến tính}: $\mathbb{E}(aY_1 + bY_2 \mid X) = a\mathbb{E}(Y_1 \mid X) + b\mathbb{E}(Y_2 \mid X)$
+    \item \textbf{Tính tháp}: $\mathbb{E}[\mathbb{E}(Y \mid X)] = \mathbb{E}(Y)$
+    \item \textbf{Độc lập}: Nếu $X$ và $Y$ độc lập thì $\mathbb{E}(Y \mid X) = \mathbb{E}(Y)$
+    \item \textbf{Tính chất đo được}: $\mathbb{E}(Y \mid X)$ là hàm đo được của $X$
+\end{itemize}
 \end{tinhchat}
+
+\subsubsection*{Phương sai có điều kiện}
+\begin{dn}[Phương sai có điều kiện]
+Phương sai có điều kiện của $Y$ khi biết $X$ được định nghĩa bởi:
+\[
+\text{Var}(Y \mid X) = \mathbb{E}[(Y - \mathbb{E}(Y \mid X))^2 \mid X] = \mathbb{E}(Y^2 \mid X) - [\mathbb{E}(Y \mid X)]^2
+\]
+\end{dn}
+
+\begin{dl}[Công thức phân rã phương sai]
+Với các biến ngẫu nhiên $X$ và $Y$ có phương sai hữu hạn:
+\[
+\text{Var}(Y) = \mathbb{E}[\text{Var}(Y \mid X)] + \text{Var}[\mathbb{E}(Y \mid X)]
+\]
+\end{dl}
+
+\subsubsection*{Ví dụ minh họa}
+Xét một hộp đựng 3 quả bóng đỏ và 2 quả bóng xanh. Lấy ngẫu nhiên 2 quả bóng không hoàn lại. Gọi $X$ là số quả bóng đỏ trong lần lấy đầu tiên và $Y$ là tổng số quả bóng đỏ sau 2 lần lấy.
+
+\textbf{Tính toán:}
+\begin{itemize}
+    \item $P(X = 1) = \frac{3}{5}$, $P(X = 0) = \frac{2}{5}$
+    \item $\mathbb{E}(Y \mid X = 1) = 1 + \frac{2}{4} = 1.5$ (1 quả đỏ đã lấy + xác suất lấy thêm 1 quả đỏ từ 4 quả còn lại)
+    \item $\mathbb{E}(Y \mid X = 0) = 0 + \frac{3}{4} = 0.75$ (0 quả đỏ đã lấy + xác suất lấy 1 quả đỏ từ 4 quả còn lại)
+    \item $\mathbb{E}(Y) = \mathbb{E}[\mathbb{E}(Y \mid X)] = 1.5 \cdot \frac{3}{5} + 0.75 \cdot \frac{2}{5} = 1.2$
+\end{itemize}
 
 \section{Một số phân phối xác suất quan trọng}
 
-\subsection{Phân phối chuẩn}
-Biến ngẫu nhiên $X\sim\mathcal{N}(\mu,\sigma^2)$ nếu
+Phân phối xác suất là nền tảng của thống kê toán học, mô tả cách các giá trị của biến ngẫu nhiên được phân bố. Dưới đây là các phân phối quan trọng nhất thường gặp trong thực tế và lý thuyết thống kê.
+
+\subsection{Phân phối chuẩn (Normal Distribution)}
+\begin{dn}[Phân phối chuẩn]
+Biến ngẫu nhiên $X$ được gọi là có phân phối chuẩn với tham số vị trí $\mu$ và tham số tỷ lệ $\sigma^2$, ký hiệu $X\sim\mathcal{N}(\mu,\sigma^2)$, nếu hàm mật độ xác suất của nó có dạng:
 \[
-f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}\exp\!\left(-\,\frac{(x-\mu)^2}{2\sigma^2}\right),\; x\in\mathbb{R},\qquad \mathbb{E}X=\mu,\; \Var(X)=\sigma^2.
+f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}\exp\!\left(-\,\frac{(x-\mu)^2}{2\sigma^2}\right),\; x\in\mathbb{R}
+\]
+\end{dn}
+
+\begin{tinhchat}
+Các tính chất quan trọng của phân phối chuẩn:
+\begin{itemize}
+    \item \textbf{Đối xứng}: Phân phối đối xứng quanh giá trị trung bình $\mu$
+    \item \textbf{Đặc trưng số}: $\mathbb{E}X=\mu$, $\text{Var}(X)=\sigma^2$
+    \item \textbf{Quy tắc 68-95-99.7}: Khoảng $[\mu-\sigma, \mu+\sigma]$ chứa 68.27\% dữ liệu, $[\mu-2\sigma, \mu+2\sigma]$ chứa 95.45\%, $[\mu-3\sigma, \mu+3\sigma]$ chứa 99.73\%
+    \item \textbf{Tính chất tuyến tính}: Nếu $X\sim\mathcal{N}(\mu,\sigma^2)$ thì $aX+b\sim\mathcal{N}(a\mu+b, a^2\sigma^2)$
+    \item \textbf{Tổng các biến chuẩn độc lập}: Nếu $X_i\sim\mathcal{N}(\mu_i,\sigma_i^2)$ độc lập thì $\sum_{i=1}^n X_i\sim\mathcal{N}(\sum_{i=1}^n \mu_i, \sum_{i=1}^n \sigma_i^2)$
+\end{itemize}
+\end{tinhchat}
+
+\subsubsection*{Phân phối chuẩn chuẩn hóa}
+Khi $\mu=0$ và $\sigma^2=1$, ta có phân phối chuẩn chuẩn hóa $Z\sim\mathcal{N}(0,1)$ với hàm mật độ:
+\[
+\phi(z)=\frac{1}{\sqrt{2\pi}}e^{-z^2/2}
+\]
+và hàm phân phối tích lũy:
+\[
+\Phi(z)=\int_{-\infty}^z \phi(t)\,dt
 \]
 
-\subsection{Phân phối Chi-bình phương}
-Nếu $Z_1,\ldots,Z_n\overset{i.i.d.}{\sim}\mathcal{N}(0,1)$ và $X=\sum_{i=1}^n Z_i^2$ thì $X\sim\chi^2(n)$. Mật độ
+\subsubsection*{Ứng dụng thực tế}
+Phân phối chuẩn xuất hiện trong nhiều hiện tượng tự nhiên:
+\begin{itemize}
+    \item Chiều cao, cân nặng của con người
+    \item Điểm số trong các bài kiểm tra
+    \item Sai số đo lường trong thí nghiệm
+    \item Lợi nhuận của các khoản đầu tư tài chính
+\end{itemize}
+
+\subsection{Phân phối Chi-bình phương ($\chi^2$)}
+\begin{dn}[Phân phối Chi-bình phương]
+Nếu $Z_1,\ldots,Z_n\overset{i.i.d.}{\sim}\mathcal{N}(0,1)$ và $X=\sum_{i=1}^n Z_i^2$ thì $X\sim\chi^2(n)$. Hàm mật độ xác suất:
 \[
 f(x)=\begin{cases}\dfrac{e^{-x/2}x^{\frac{n}{2}-1}}{2^{n/2}\,\Gamma\!\left(\tfrac{n}{2}\right)}, & x>0,\\ 0, & x\le0.\end{cases}
 \]
-Với $X\sim\chi^2(n)$: $\mathbb{E}(X)=n$, $\Var(X)=2n$. Ký hiệu $\chi^2_{\alpha,n}$ là phân vị bậc $\alpha$.
+\end{dn}
+
+\begin{tinhchat}
+Các tính chất của phân phối $\chi^2$:
+\begin{itemize}
+    \item \textbf{Tham số}: $n$ được gọi là bậc tự do (degrees of freedom)
+    \item \textbf{Đặc trưng số}: $\mathbb{E}(X)=n$, $\text{Var}(X)=2n$
+    \item \textbf{Tính chất cộng tính}: Nếu $X_1\sim\chi^2(n_1)$ và $X_2\sim\chi^2(n_2)$ độc lập thì $X_1+X_2\sim\chi^2(n_1+n_2)$
+    \item \textbf{Phân phối không âm}: Chỉ nhận giá trị không âm
+    \item \textbf{Phân phối lệch phải}: Đuôi phân phối kéo dài về phía phải
+\end{itemize}
+\end{tinhchat}
 
 \paragraph{Phân vị Chi-bình phương}
-Giá trị $\chi^2_{\alpha,n}$ được xác định bởi $P\big(X\le \chi^2_{\alpha,n}\big)=\alpha$ với $X\sim\chi^2(n)$. Các bảng phân vị thường dùng để thiết lập miền bác bỏ trong kiểm định phương sai.
+Giá trị $\chi^2_{\alpha,n}$ được xác định bởi $P\big(X\le \chi^2_{\alpha,n}\big)=\alpha$ với $X\sim\chi^2(n)$. Các bảng phân vị thường dùng để thiết lập miền bác bỏ trong kiểm định phương sai và xây dựng khoảng tin cậy cho phương sai.
 
-\subsection{Phân phối Student}
-Nếu $Z\sim\mathcal{N}(0,1)$ độc lập với $V\sim\chi^2(n)$ thì $T=\dfrac{Z}{\sqrt{V/n}}\sim t(n)$. Với $n>2$: $\mathbb{E}(T)=0$, $\Var(T)=\dfrac{n}{n-2}$.
-
-\subsection{Một vài phân phối cơ bản khác}
+\subsubsection*{Ứng dụng trong thống kê}
 \begin{itemize}
-    \item \textbf{Đều $U(a,b)$}: $f(x)=\dfrac{1}{b-a}$ trên $[a,b]$; $\mathbb{E}[X]=\dfrac{a+b}{2}$, $\Var(X)=\dfrac{(b-a)^2}{12}$.
-    \item \textbf{Bernoulli($p$)}: $P(X=1)=p$, $P(X=0)=1-p$; $\mathbb{E}[X]=p$, $\Var(X)=p(1-p)$.
-    \item \textbf{Nhị thức $\mathrm{B}(n,p)$}: $P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}$, $k=0,\ldots,n$; $\mathbb{E}[X]=np$, $\Var(X)=np(1-p)$.
-    \item \textbf{Poisson($\lambda$)}: $P(X=k)=e^{-\lambda}\dfrac{\lambda^k}{k!}$; $\mathbb{E}[X]=\Var(X)=\lambda$.
-    \item \textbf{Mũ ($\lambda>0$)}: $f(x)=\lambda e^{-\lambda x}$, $x\ge0$; $\mathbb{E}[X]=1/\lambda$, $\Var(X)=1/\lambda^2$.
+    \item \textbf{Kiểm định phương sai}: So sánh phương sai mẫu với phương sai tổng thể
+    \item \textbf{Phân tích bảng tương quan}: Kiểm định tính độc lập giữa các biến phân loại
+    \item \textbf{Khoảng tin cậy cho phương sai}: Xây dựng khoảng tin cậy cho phương sai tổng thể
 \end{itemize}
+
+\subsection{Phân phối Student (t-distribution)}
+\begin{dn}[Phân phối Student]
+Nếu $Z\sim\mathcal{N}(0,1)$ độc lập với $V\sim\chi^2(n)$ thì $T=\dfrac{Z}{\sqrt{V/n}}\sim t(n)$. Hàm mật độ:
+\[
+f(t)=\frac{\Gamma\left(\frac{n+1}{2}\right)}{\sqrt{n\pi}\,\Gamma\left(\frac{n}{2}\right)}\left(1+\frac{t^2}{n}\right)^{-(n+1)/2}, \quad t\in\mathbb{R}
+\]
+\end{dn}
+
+\begin{tinhchat}
+Các tính chất của phân phối Student:
+\begin{itemize}
+    \item \textbf{Đối xứng}: Phân phối đối xứng quanh 0
+    \item \textbf{Đặc trưng số}: Với $n>1$: $\mathbb{E}(T)=0$; với $n>2$: $\text{Var}(T)=\dfrac{n}{n-2}$
+    \item \textbf{Hội tụ về chuẩn}: Khi $n\to\infty$, phân phối $t(n)$ hội tụ về $\mathcal{N}(0,1)$
+    \item \textbf{Đuôi nặng hơn chuẩn}: Với $n$ hữu hạn, đuôi phân phối nặng hơn phân phối chuẩn
+\end{itemize}
+\end{tinhchat}
+
+\subsubsection*{Ứng dụng chính}
+\begin{itemize}
+    \item \textbf{Kiểm định trung bình}: Khi phương sai tổng thể chưa biết
+    \item \textbf{Khoảng tin cậy cho trung bình}: Với mẫu nhỏ và phương sai chưa biết
+    \item \textbf{So sánh hai trung bình}: Kiểm định t cho hai mẫu độc lập hoặc ghép cặp
+\end{itemize}
+
+\subsection{Phân phối F (Fisher-Snedecor)}
+\begin{dn}[Phân phối F]
+Nếu $X_1\sim\chi^2(n_1)$ và $X_2\sim\chi^2(n_2)$ độc lập thì $F=\dfrac{X_1/n_1}{X_2/n_2}\sim F(n_1,n_2)$. Hàm mật độ:
+\[
+f(x)=\frac{\Gamma\left(\frac{n_1+n_2}{2}\right)}{\Gamma\left(\frac{n_1}{2}\right)\Gamma\left(\frac{n_2}{2}\right)}\left(\frac{n_1}{n_2}\right)^{n_1/2}\frac{x^{n_1/2-1}}{(1+\frac{n_1x}{n_2})^{(n_1+n_2)/2}}, \quad x>0
+\]
+\end{dn}
+
+\begin{tinhchat}
+Các tính chất của phân phối F:
+\begin{itemize}
+    \item \textbf{Tham số}: $n_1, n_2$ là các bậc tự do
+    \item \textbf{Đặc trưng số}: Với $n_2>2$: $\mathbb{E}(F)=\dfrac{n_2}{n_2-2}$; với $n_2>4$: $\text{Var}(F)=\dfrac{2n_2^2(n_1+n_2-2)}{n_1(n_2-2)^2(n_2-4)}$
+    \item \textbf{Tính chất nghịch đảo}: Nếu $F\sim F(n_1,n_2)$ thì $\dfrac{1}{F}\sim F(n_2,n_1)$
+\end{itemize}
+\end{tinhchat}
+
+\subsection{Các phân phối rời rạc quan trọng}
+
+\subsubsection*{Phân phối Bernoulli}
+\begin{dn}[Phân phối Bernoulli]
+Biến ngẫu nhiên $X$ có phân phối Bernoulli với tham số $p$ (ký hiệu $X\sim\text{Bernoulli}(p)$) nếu:
+\[
+P(X=1)=p, \quad P(X=0)=1-p
+\]
+\end{dn}
+
+\begin{tinhchat}
+$\mathbb{E}[X]=p$, $\text{Var}(X)=p(1-p)$. Phân phối này mô tả kết quả của một thí nghiệm với hai kết cục: thành công (1) hoặc thất bại (0).
+\end{tinhchat}
+
+\subsubsection*{Phân phối nhị thức}
+\begin{dn}[Phân phối nhị thức]
+Biến ngẫu nhiên $X$ có phân phối nhị thức với tham số $n$ và $p$ (ký hiệu $X\sim\mathrm{B}(n,p)$) nếu:
+\[
+P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}, \quad k=0,1,\ldots,n
+\]
+\end{dn}
+
+\begin{tinhchat}
+$\mathbb{E}[X]=np$, $\text{Var}(X)=np(1-p)$. Phân phối này mô tả số lần thành công trong $n$ thí nghiệm Bernoulli độc lập.
+
+\textbf{Điều kiện áp dụng}: Khi $n$ lớn và $p$ không quá gần 0 hoặc 1, phân phối nhị thức có thể xấp xỉ bằng phân phối chuẩn $\mathcal{N}(np, np(1-p))$.
+\end{tinhchat}
+
+\subsubsection*{Phân phối Poisson}
+\begin{dn}[Phân phối Poisson]
+Biến ngẫu nhiên $X$ có phân phối Poisson với tham số $\lambda$ (ký hiệu $X\sim\text{Poisson}(\lambda)$) nếu:
+\[
+P(X=k)=e^{-\lambda}\frac{\lambda^k}{k!}, \quad k=0,1,2,\ldots
+\]
+\end{dn}
+
+\begin{tinhchat}
+$\mathbb{E}[X]=\text{Var}(X)=\lambda$. Phân phối Poisson mô tả số sự kiện xảy ra trong một khoảng thời gian hoặc không gian cố định.
+
+\textbf{Ứng dụng}: Số cuộc gọi đến tổng đài, số tai nạn giao thông, số lỗi trong sản xuất, số khách hàng đến cửa hàng.
+\end{tinhchat}
+
+\subsection{Các phân phối liên tục khác}
+
+\subsubsection*{Phân phối đều}
+\begin{dn}[Phân phối đều]
+Biến ngẫu nhiên $X$ có phân phối đều trên đoạn $[a,b]$ (ký hiệu $X\sim U(a,b)$) nếu hàm mật độ:
+\[
+f(x)=\begin{cases}
+\dfrac{1}{b-a}, & a \leq x \leq b \\
+0, & \text{trường hợp khác}
+\end{cases}
+\]
+\end{dn}
+
+\begin{tinhchat}
+$\mathbb{E}[X]=\dfrac{a+b}{2}$, $\text{Var}(X)=\dfrac{(b-a)^2}{12}$. Phân phối đều mô tả sự kiện ngẫu nhiên có xác suất đồng đều trên một khoảng.
+\end{tinhchat}
+
+\subsubsection*{Phân phối mũ}
+\begin{dn}[Phân phối mũ]
+Biến ngẫu nhiên $X$ có phân phối mũ với tham số $\lambda>0$ (ký hiệu $X\sim\text{Exp}(\lambda)$) nếu hàm mật độ:
+\[
+f(x)=\begin{cases}
+\lambda e^{-\lambda x}, & x \geq 0 \\
+0, & x < 0
+\end{cases}
+\]
+\end{dn}
+
+\begin{tinhchat}
+$\mathbb{E}[X]=\dfrac{1}{\lambda}$, $\text{Var}(X)=\dfrac{1}{\lambda^2}$. Phân phối mũ có tính chất "không nhớ": $P(X > s+t \mid X > s) = P(X > t)$.
+
+\textbf{Ứng dụng}: Thời gian giữa các sự kiện trong quá trình Poisson, tuổi thọ của thiết bị điện tử, thời gian phục vụ khách hàng.
+\end{tinhchat}
+
+\subsubsection*{Phân phối Gamma}
+\begin{dn}[Phân phối Gamma]
+Biến ngẫu nhiên $X$ có phân phối Gamma với tham số hình dạng $\alpha>0$ và tham số tỷ lệ $\beta>0$ (ký hiệu $X\sim\text{Gamma}(\alpha,\beta)$) nếu hàm mật độ:
+\[
+f(x)=\begin{cases}
+\dfrac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}, & x > 0 \\
+0, & x \leq 0
+\end{cases}
+\]
+\end{dn}
+
+\begin{tinhchat}
+$\mathbb{E}[X]=\dfrac{\alpha}{\beta}$, $\text{Var}(X)=\dfrac{\alpha}{\beta^2}$. Phân phối Gamma là tổng quát hóa của phân phối mũ và chi-bình phương.
+
+\textbf{Trường hợp đặc biệt}: $\text{Gamma}(1,\lambda)=\text{Exp}(\lambda)$, $\text{Gamma}(n/2,1/2)=\chi^2(n)$.
+\end{tinhchat}
 
 \section{Định lý giới hạn trung tâm và luật số lớn}
 
-\subsection{Định lý giới hạn trung tâm (CLT)}
+Đây là hai định lý cơ bản nhất của lý thuyết xác suất, tạo nền tảng cho thống kê suy diễn và giải thích tại sao phân phối chuẩn đóng vai trò quan trọng trong thống kê ứng dụng.
+
+\subsection{Định lý giới hạn trung tâm (Central Limit Theorem - CLT)}
+
+\subsubsection*{Phát biểu cơ bản}
 \begin{dl}[Định lý giới hạn trung tâm cho dãy i.i.d.]
-Với $X_1,\ldots,X_n$ độc lập cùng phân phối, $\mathbb{E}(X_i)=\mu$, $\Var(X_i)=\sigma^2\in(0,\infty)$, đặt
+Với $X_1,\ldots,X_n$ độc lập cùng phân phối (i.i.d.), $\mathbb{E}(X_i)=\mu$, $\text{Var}(X_i)=\sigma^2\in(0,\infty)$, đặt
 \[
 \overline{X}_n=\frac{1}{n}\sum_{i=1}^n X_i,\qquad Z_n=\frac{\sqrt{n}(\overline{X}_n-\mu)}{\sigma}.
 \]
 Khi $n\to\infty$, $Z_n\xrightarrow{\mathcal{D}}\mathcal{N}(0,1)$.
 \end{dl}
 
+\begin{tinhchat}
+\textbf{Ý nghĩa thực tế}: CLT giải thích tại sao trung bình mẫu của hầu hết các biến ngẫu nhiên đều có phân phối xấp xỉ chuẩn khi kích thước mẫu đủ lớn, bất kể phân phối gốc của dữ liệu như thế nào.
+\end{tinhchat}
+
+\subsubsection*{Điều kiện Lindeberg}
 \begin{dl}[CLT cho độc lập không đồng phân phối (điều kiện Lindeberg)]
-Giả sử $X_1,X_2,\ldots$ độc lập, $\mathbb{E}(X_i)=0$, $\Var(X_i)=\sigma_i^2<\infty$ và $s_n^2=\sum_{i=1}^n\sigma_i^2\to\infty$. Nếu với mọi $\varepsilon>0$,
+Giả sử $X_1,X_2,\ldots$ độc lập, $\mathbb{E}(X_i)=0$, $\text{Var}(X_i)=\sigma_i^2<\infty$ và $s_n^2=\sum_{i=1}^n\sigma_i^2\to\infty$. Nếu với mọi $\varepsilon>0$,
 \[
 \lim_{n\to\infty}\frac{1}{s_n^2}\sum_{i=1}^n \mathbb{E}\Big[\,X_i^2\,\mathbf{1}_{\{|X_i|>\varepsilon s_n\}}\Big]=0,
 \]
 thì $\dfrac{1}{s_n}\sum_{i=1}^n X_i\xrightarrow{\mathcal{D}}\mathcal{N}(0,1)$.
 \end{dl}
 
-\subsection{Luật số lớn}
+\begin{tinhchat}
+Điều kiện Lindeberg đảm bảo rằng không có biến ngẫu nhiên nào trong tổng có ảnh hưởng quá lớn đến tổng thể, nghĩa là mỗi thành phần đều "nhỏ" so với tổng.
+\end{tinhchat}
+
+\subsubsection*{Tốc độ hội tụ và xấp xỉ}
+\begin{dl}[Định lý Berry-Esseen]
+Với $X_1,\ldots,X_n$ i.i.d. có kỳ vọng $\mu$, phương sai $\sigma^2$ và moment bậc 3 hữu hạn $\rho=\mathbb{E}|X_1-\mu|^3$, ta có:
+\[
+\sup_{x\in\mathbb{R}}\left|P\left(\frac{\sqrt{n}(\overline{X}_n-\mu)}{\sigma}\leq x\right)-\Phi(x)\right|\leq\frac{C\rho}{\sigma^3\sqrt{n}}
+\]
+với $C$ là hằng số phổ quát ($C\approx 0.4748$).
+\end{dl}
+
+\begin{tinhchat}
+Định lý này cho ta ước lượng tốc độ hội tụ của CLT, cho thấy sai số xấp xỉ giảm theo tốc độ $O(1/\sqrt{n})$.
+\end{tinhchat}
+
+\subsubsection*{Ứng dụng thực tế}
+\begin{itemize}
+    \item \textbf{Khoảng tin cậy}: Xây dựng khoảng tin cậy cho trung bình tổng thể dựa trên phân phối chuẩn
+    \item \textbf{Kiểm định giả thuyết}: Sử dụng thống kê Z-test cho trung bình
+    \item \textbf{Ước lượng điểm}: Trung bình mẫu là ước lượng không chệch và hiệu quả cho trung bình tổng thể
+    \item \textbf{Phân tích dữ liệu}: Giải thích tại sao nhiều hiện tượng tự nhiên có phân phối chuẩn
+\end{itemize}
+
+\subsubsection*{Ví dụ minh họa}
+Xét dữ liệu về chiều cao của 1000 người trưởng thành. Mặc dù chiều cao có thể không tuân theo phân phối chuẩn chính xác, nhưng trung bình của các mẫu ngẫu nhiên với kích thước $n=30$ sẽ có phân phối xấp xỉ chuẩn.
+
+\textbf{Mô phỏng:}
+\begin{itemize}
+    \item Lấy 1000 mẫu, mỗi mẫu có 30 quan sát
+    \item Tính trung bình của mỗi mẫu
+    \item Vẽ histogram của 1000 trung bình mẫu
+    \item Kết quả sẽ cho thấy phân phối xấp xỉ chuẩn
+\end{itemize}
+
+\subsection{Luật số lớn (Law of Large Numbers)}
+
+\subsubsection*{Luật số lớn yếu (Weak Law of Large Numbers)}
 \begin{dl}[Luật số lớn yếu]
-$\overline{X}_n\xrightarrow{P}\mu$ khi $n\to\infty$.
+Với $X_1,X_2,\ldots$ i.i.d. có kỳ vọng $\mu$ hữu hạn, đặt $\overline{X}_n=\frac{1}{n}\sum_{i=1}^n X_i$. Khi đó:
+\[
+\overline{X}_n\xrightarrow{P}\mu \quad \text{khi} \quad n\to\infty
+\]
 \end{dl}
+
+\begin{tinhchat}
+Luật số lớn yếu khẳng định rằng trung bình mẫu hội tụ theo xác suất về trung bình tổng thể khi kích thước mẫu tăng lên vô hạn.
+\end{tinhchat}
+
+\subsubsection*{Luật số lớn mạnh (Strong Law of Large Numbers)}
 \begin{dl}[Luật số lớn mạnh]
-$\overline{X}_n\xrightarrow{a.s.}\mu$ nếu các kỳ vọng hữu hạn.
+Với $X_1,X_2,\ldots$ i.i.d. có kỳ vọng $\mu$ hữu hạn, đặt $\overline{X}_n=\frac{1}{n}\sum_{i=1}^n X_i$. Khi đó:
+\[
+\overline{X}_n\xrightarrow{a.s.}\mu \quad \text{khi} \quad n\to\infty
+\]
 \end{dl}
+
+\begin{tinhchat}
+Luật số lớn mạnh khẳng định rằng trung bình mẫu hội tụ hầu chắc chắn về trung bình tổng thể, mạnh hơn hội tụ theo xác suất.
+\end{tinhchat}
+
+\subsubsection*{Luật số lớn cho biến ngẫu nhiên không độc lập}
+\begin{dl}[Luật số lớn cho dãy m-phụ thuộc]
+Giả sử $X_1,X_2,\ldots$ là dãy m-phụ thuộc (tức là $X_i$ và $X_j$ độc lập khi $|i-j|>m$) với $\mathbb{E}(X_i)=\mu$ và $\text{Var}(X_i)\leq C$ với mọi $i$. Khi đó:
+\[
+\overline{X}_n\xrightarrow{P}\mu \quad \text{khi} \quad n\to\infty
+\]
+\end{dl}
+
+\subsubsection*{Tốc độ hội tụ}
+\begin{dl}[Bất đẳng thức Chebyshev cho trung bình mẫu]
+Với $X_1,\ldots,X_n$ i.i.d. có kỳ vọng $\mu$ và phương sai $\sigma^2$ hữu hạn:
+\[
+P(|\overline{X}_n-\mu|\geq\varepsilon)\leq\frac{\sigma^2}{n\varepsilon^2}
+\]
+\end{dl}
+
+\begin{tinhchat}
+Bất đẳng thức này cho ta ước lượng tốc độ hội tụ của luật số lớn yếu, cho thấy xác suất sai lệch giảm theo tốc độ $O(1/n)$.
+\end{tinhchat}
+
+\subsubsection*{Ứng dụng thực tế}
+\begin{itemize}
+    \item \textbf{Ước lượng điểm}: Trung bình mẫu là ước lượng vững cho trung bình tổng thể
+    \item \textbf{Monte Carlo}: Phương pháp tính gần đúng tích phân và tổng bằng cách lấy trung bình của các giá trị mẫu
+    \item \textbf{Thống kê Bayes}: Cập nhật niềm tin dựa trên dữ liệu quan sát
+    \item \textbf{Học máy}: Thuật toán gradient descent và các phương pháp tối ưu hóa khác
+\end{itemize}
+
+\subsubsection*{Mối quan hệ với CLT}
+\begin{tinhchat}
+\textbf{Luật số lớn} cho ta biết rằng trung bình mẫu hội tụ về trung bình tổng thể, trong khi \textbf{CLT} cho ta biết phân phối của sai lệch giữa trung bình mẫu và trung bình tổng thể khi kích thước mẫu lớn.
+
+Cụ thể, nếu đặt $Z_n=\frac{\sqrt{n}(\overline{X}_n-\mu)}{\sigma}$, thì:
+\begin{itemize}
+    \item Luật số lớn: $Z_n/\sqrt{n}\xrightarrow{P}0$
+    \item CLT: $Z_n\xrightarrow{\mathcal{D}}\mathcal{N}(0,1)$
+\end{itemize}
+\end{tinhchat}
+
+\subsubsection*{Ví dụ ứng dụng}
+Xét việc ước lượng xác suất của một sự kiện $A$ bằng tần suất tương đối:
+\[
+\hat{p}_n=\frac{1}{n}\sum_{i=1}^n I_A(X_i)
+\]
+trong đó $I_A$ là hàm chỉ báo của sự kiện $A$.
+
+\textbf{Theo luật số lớn}: $\hat{p}_n\xrightarrow{P}P(A)$
+\textbf{Theo CLT}: $\frac{\sqrt{n}(\hat{p}_n-P(A))}{\sqrt{P(A)(1-P(A))}}\xrightarrow{\mathcal{D}}\mathcal{N}(0,1)$
+
+Điều này cho phép ta xây dựng khoảng tin cậy cho xác suất $P(A)$ dựa trên tần suất mẫu.
 
 \section{Cơ sở của kiểm định giả thuyết}
 
@@ -230,41 +586,11 @@ Một nhà máy sản xuất pin với tuổi thọ trung bình được quảng
 
 \textbf{Kết luận:} Không có bằng chứng thống kê để khẳng định tuổi thọ trung bình khác 500 giờ.
 
-\section{Phân phối Fisher và các ứng dụng}
 
-\subsection{Phân phối Fisher (F-distribution)}
-\begin{dn}[Phân phối F]
-Nếu $U \sim \chi^2(m)$ và $V \sim \chi^2(n)$ độc lập, thì 
-\[
-F = \frac{U/m}{V/n} \sim F(m,n)
-\]
-được gọi là phân phối Fisher với $m$ và $n$ bậc tự do.
-\end{dn}
-
-\begin{tinhchat}[Tính chất của phân phối F]
-\begin{itemize}
-    \item $F > 0$ với xác suất 1
-    \item Nếu $F \sim F(m,n)$ thì $1/F \sim F(n,m)$
-    \item Khi $n \to \infty$: $mF \xrightarrow{d} \chi^2(m)$
-    \item $\mathbb{E}[F] = \frac{n}{n-2}$ với $n > 2$
-    \item $\Var(F) = \frac{2n^2(m+n-2)}{m(n-2)^2(n-4)}$ với $n > 4$
-\end{itemize}
-\end{tinhchat}
-
-\subsection{Ứng dụng trong kiểm định tỷ số phương sai}
-Xét hai mẫu độc lập:
-\begin{itemize}
-    \item $X_1, \ldots, X_{n_1} \overset{i.i.d.}{\sim} \mathcal{N}(\mu_1, \sigma_1^2)$
-    \item $Y_1, \ldots, Y_{n_2} \overset{i.i.d.}{\sim} \mathcal{N}(\mu_2, \sigma_2^2)$
-\end{itemize}
-
-Để kiểm định $H_0: \sigma_1^2 = \sigma_2^2$ vs $H_1: \sigma_1^2 \neq \sigma_2^2$, ta sử dụng thống kê:
-\[
-F = \frac{S_1^2}{S_2^2} \sim F(n_1-1, n_2-1) \text{ dưới } H_0
-\]
-trong đó $S_1^2, S_2^2$ là phương sai mẫu hiệu chỉnh.
 
 \section{Khoảng tin cậy và ước lượng}
+
+
 
 \subsection{Khái niệm khoảng tin cậy}
 \begin{dn}[Khoảng tin cậy]
@@ -294,39 +620,5 @@ Với mẫu từ phân phối chuẩn, khoảng tin cậy $100(1-\alpha)\%$ cho 
 \left[\frac{(n-1)S^2}{\chi^2_{1-\alpha/2, n-1}}, \frac{(n-1)S^2}{\chi^2_{\alpha/2, n-1}}\right]
 \]
 
-\section{Mở rộng: Các phương pháp Bootstrap}
 
-\subsection{Nguyên lý Bootstrap}
-Bootstrap là phương pháp lấy mẫu lại với hoàn lại từ mẫu gốc để ước lượng phân phối của các thống kê mẫu. Phương pháp này đặc biệt hữu ích khi không biết phân phối lý thuyết của thống kê quan tâm.
 
-\begin{dl}[Thuật toán Bootstrap cơ bản]
-Cho mẫu gốc $X_1, \ldots, X_n$ và thống kê quan tâm $T_n = T(X_1, \ldots, X_n)$:
-\begin{enumerate}
-    \item Lấy mẫu bootstrap $X_1^*, \ldots, X_n^*$ với hoàn lại từ mẫu gốc
-    \item Tính $T_n^* = T(X_1^*, \ldots, X_n^*)$
-    \item Lặp lại bước 1-2 $B$ lần để có $T_1^*, \ldots, T_B^*$
-    \item Sử dụng phân phối empirical của $\{T_b^*\}_{b=1}^B$ để ước lượng phân phối của $T_n$
-\end{enumerate}
-\end{dl}
-
-\subsection{Khoảng tin cậy Bootstrap}
-\subsubsection*{Phương pháp Percentile}
-Khoảng tin cậy $100(1-\alpha)\%$ cho $\theta$ được xác định bởi:
-\[
-\left[T^*_{(\alpha/2)}, T^*_{(1-\alpha/2)}\right]
-\]
-trong đó $T^*_{(p)}$ là phân vị thứ $p$ của phân phối bootstrap.
-
-\subsubsection*{Phương pháp Bias-Corrected and Accelerated (BCa)}
-Đây là cải tiến của phương pháp percentile, điều chỉnh độ lệch và tăng tốc:
-\[
-\left[T^*_{(\alpha_1)}, T^*_{(\alpha_2)}\right]
-\]
-với
-\[
-\alpha_1 = \Phi\left(\hat{z}_0 + \frac{\hat{z}_0 + z_{\alpha/2}}{1 - \hat{a}(\hat{z}_0 + z_{\alpha/2})}\right)
-\]
-\[
-\alpha_2 = \Phi\left(\hat{z}_0 + \frac{\hat{z}_0 + z_{1-\alpha/2}}{1 - \hat{a}(\hat{z}_0 + z_{1-\alpha/2})}\right)
-\]
-trong đó $\hat{z}_0$ là hệ số điều chỉnh độ lệch và $\hat{a}$ là hệ số tăng tốc.

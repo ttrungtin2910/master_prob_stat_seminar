@@ -1,4 +1,5 @@
 \chapter{Một số dạng kiểm định thống kê}
+Chương này trình bày các phương pháp kiểm định thống kê quan trọng, bao gồm kiểm định Pearson, Kolmogorov-Smirnov và các kiểm định phi tham số \cite{lehmann2005, conover1999, sheskin2011}.
 
 \section{Kiểm định Pearson}
 
@@ -46,14 +47,14 @@ Từ đó $E=\begin{smallmatrix}(42,25,13)\\(42,25,13)\end{smallmatrix}$. Tính 
 \begin{matlab}
 \begin{lstlisting}
 function [chi2_stat, chi2_crit, pval] = pearson_gof_demo(N, bins)
-% Minh họa GOF với phân phối rời rạc tùy chọn
-Z  = 1:5;                         % các giá trị
-PZ = [0.10 0.18 0.32 0.25 0.15];  % mô hình giả thuyết
+% Demo GOF with discrete distribution
+Z  = 1:5;                         % possible values
+PZ = [0.10 0.18 0.32 0.25 0.15];  % theoretical model
 
-% Sinh mẫu theo mô hình để so sánh (có thể thay bằng dữ liệu thực)
+% Generate sample according to model
 sample = randsrc(1, N, [Z; PZ]);
 [O, edges] = histcounts(sample, bins, 'BinMethod','integers');
-E = N * PZ(1:bins);               % đơn giản: ghép 5 bins = 5 xác suất
+E = N * PZ(1:bins);               % expected frequencies
 
 chi2_stat = sum((O - E).^2 ./ max(E, eps));
 chi2_crit = chi2inv(0.95, bins - 1);
@@ -64,8 +65,8 @@ end
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.75\linewidth]{../../assets/logos/university-logo.png}
-    \caption{Minh họa biểu đồ tần suất và CDF khi kiểm định Pearson}
+    \includegraphics[width=0.8\linewidth]{../../assets/images/Singletons_Pearson.png}
+    \caption{Kết quả kiểm định Pearson cho dữ liệu Singletons}
 \end{figure}
 
 \section{Bộ hàm MATLAB kèm theo để chạy}
@@ -232,126 +233,17 @@ end
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.75\linewidth]{../../assets/logos/university-logo.png}
-    \caption{Biểu đồ ECDF và CDF lý thuyết trong kiểm định K--S}
+    \includegraphics[width=0.8\linewidth]{../../assets/images/KS_fig_Singletons.png}
+    \caption{Biểu đồ ECDF và CDF lý thuyết trong kiểm định Kolmogorov-Smirnov}
 \end{figure}
 
-\section{Kiểm định Anderson-Darling}
 
-\subsection{Cơ sở lý thuyết}
-Kiểm định Anderson-Darling (A-D) là một cải tiến của kiểm định Kolmogorov-Smirnov, tập trung nhiều hơn vào sự khác biệt ở đuôi phân phối.
 
-\begin{dn}[Thống kê Anderson-Darling]
-Với mẫu $X_1, \ldots, X_n$ và CDF giả thuyết $F_0$, thống kê A-D được định nghĩa:
-\[
-A^2 = -n - \frac{1}{n}\sum_{i=1}^n (2i-1)[\ln F_0(X_{(i)}) + \ln(1-F_0(X_{(n+1-i)}))]
-\]
-trong đó $X_{(1)} \leq \cdots \leq X_{(n)}$ là thống kê thứ tự.
-\end{dn}
 
-\begin{tinhchat}[So sánh với K-S]
-\begin{itemize}
-    \item A-D nhạy cảm hơn với sự khác biệt ở đuôi phân phối
-    \item K-S nhạy cảm hơn với sự khác biệt ở trung tâm phân phối
-    \item A-D thường có lực kiểm định cao hơn trong nhiều trường hợp
-\end{itemize}
-\end{tinhchat}
 
-\subsection{Ví dụ minh họa}
-Kiểm định tính chuẩn của dữ liệu nhiệt độ hàng ngày tại một thành phố:
-\begin{itemize}
-    \item Mẫu: $n = 50$ quan sát nhiệt độ
-    \item $H_0$: Dữ liệu tuân theo phân phối chuẩn
-    \item Tính $A^2 = 0.85$
-    \item Giá trị tới hạn tại $\alpha = 0.05$: $A^2_{0.05} = 0.752$
-    \item Kết luận: Bác bỏ $H_0$ vì $0.85 > 0.752$
-\end{itemize}
 
-\section{Kiểm định Mann-Whitney U}
 
-\subsection{Kiểm định hai mẫu độc lập phi tham số}
-Kiểm định Mann-Whitney U (còn gọi là Wilcoxon rank-sum test) dùng để so sánh hai mẫu độc lập không yêu cầu giả định về phân phối.
 
-\begin{dn}[Thống kê Mann-Whitney U]
-Cho hai mẫu $X_1, \ldots, X_{n_1}$ và $Y_1, \ldots, Y_{n_2}$:
-\[
-U_1 = n_1 n_2 + \frac{n_1(n_1+1)}{2} - R_1
-\]
-\[
-U_2 = n_1 n_2 + \frac{n_2(n_2+1)}{2} - R_2
-\]
-trong đó $R_1, R_2$ là tổng hạng của mỗi nhóm trong mẫu kết hợp.
-\end{dn}
-
-\begin{tinhchat}[Phân phối tiệm cận]
-Với $n_1, n_2$ đủ lớn, $U = \min(U_1, U_2)$ có phân phối tiệm cận chuẩn:
-\[
-Z = \frac{U - \mathbb{E}[U]}{\sqrt{\Var(U)}} \sim \mathcal{N}(0,1)
-\]
-với $\mathbb{E}[U] = \frac{n_1 n_2}{2}$ và $\Var(U) = \frac{n_1 n_2 (n_1 + n_2 + 1)}{12}$.
-\end{tinhchat}
-
-\subsection{Ví dụ ứng dụng}
-So sánh hiệu quả của hai phương pháp điều trị:
-\begin{itemize}
-    \item Nhóm A (n₁ = 12): Thời gian hồi phục (ngày)
-    \item Nhóm B (n₂ = 10): Thời gian hồi phục (ngày)
-    \item $H_0$: Không có sự khác biệt về thời gian hồi phục
-    \item $H_1$: Có sự khác biệt về thời gian hồi phục
-\end{itemize}
-
-\section{Kiểm định Kruskal-Wallis}
-
-\subsection{Mở rộng cho nhiều nhóm}
-Kiểm định Kruskal-Wallis là phiên bản phi tham số của ANOVA một chiều, dùng để so sánh $k \geq 3$ nhóm độc lập.
-
-\begin{dn}[Thống kê Kruskal-Wallis]
-\[
-H = \frac{12}{N(N+1)} \sum_{i=1}^k \frac{R_i^2}{n_i} - 3(N+1)
-\]
-trong đó $N = \sum_{i=1}^k n_i$, $R_i$ là tổng hạng của nhóm thứ $i$.
-\end{dn}
-
-Dưới $H_0$ (tất cả nhóm có cùng phân phối), $H \sim \chi^2(k-1)$ tiệm cận.
-
-\subsection{Hậu kiểm định (Post-hoc testing)}
-Khi bác bỏ $H_0$, cần xác định nhóm nào khác biệt. Một số phương pháp:
-
-\subsubsection*{Kiểm định Dunn với điều chỉnh Bonferroni}
-So sánh từng cặp nhóm với mức ý nghĩa điều chỉnh $\alpha' = \frac{\alpha}{\binom{k}{2}}$.
-
-\subsubsection*{Kiểm định Steel-Dwass}
-Dùng phân phối studentized range để kiểm soát tỷ lệ sai lầm familywise.
-
-\section{Kiểm định tính độc lập và đo lường mối liên hệ}
-
-\subsection{Hệ số tương quan Spearman}
-\begin{dn}[Hệ số tương quan hạng Spearman]
-\[
-\rho_s = 1 - \frac{6\sum_{i=1}^n d_i^2}{n(n^2-1)}
-\]
-trong đó $d_i$ là hiệu số hạng của quan sát thứ $i$ trong hai biến.
-\end{dn}
-
-Kiểm định $H_0: \rho_s = 0$ sử dụng phân phối Student với $n-2$ bậc tự do:
-\[
-t = \rho_s \sqrt{\frac{n-2}{1-\rho_s^2}} \sim t(n-2)
-\]
-
-\subsection{Hệ số tương quan Kendall τ}
-\begin{dn}[Hệ số τ của Kendall]
-\[
-\tau = \frac{2(C-D)}{n(n-1)}
-\]
-trong đó $C$ là số cặp concordant và $D$ là số cặp discordant.
-\end{dn}
-
-\subsection{Cramér's V cho bảng ngẫu nhiên}
-Đo lường mức độ liên hệ trong bảng chéo:
-\[
-V = \sqrt{\frac{\chi^2}{N \cdot \min(r-1, c-1)}}
-\]
-với $0 \leq V \leq 1$.
 
 \section{Mở rộng mô hình và thí nghiệm trên dữ liệu}
 
@@ -396,76 +288,898 @@ end
 
 \section{Ứng dụng thực tế: Kiểm định với dữ liệu Singleton}
 
-\subsection{Hàm tính phân phối của biến tổng hợp}
+Với các trạng thái và xác suất cho trước trong file dữ liệu \text{Singletons}. Với số lượng biến và tham số đa dạng như vậy, việc tính trực tiếp hoàn toàn không phải dễ dàng. Tuy nhiên, với sự hỗ trợ của \text{Matlab}, ta có thể tính được phân phối xác suất và hàm phân phối tích lũy của mô hình. Đầu tiên, để tường minh về dữ liệu, chúng tôi sử dụng chương trình Matlab để biểu diễn dữ liệu với Hình \ref{fig:Singletons}.
 
 \begin{matlab}
 \begin{lstlisting}
-function [Z_vals, PZ, FZ] = singleton_sum_distribution(filename)
-% SINGLETON_SUM_DISTRIBUTION
-% Reads singleton variable states and probabilities from an Excel file
-% and computes the sum distribution (values, probabilities, and CDF).
+function tree_decision(clique)
+% TREE_DECISION  Plot decision tree graphs for different cliques
+%
+% USAGE: tree_decision(clique)
+% 
+% INPUT:
+%   clique - cell array containing clique definitions
+%
+% This function creates visualization of decision tree structures
+% for different probabilistic models and variable dependencies.
 
-% Read the Excel file
-T = readtable(filename);
+% Define colors for different variable types
+colors = {'red', 'blue', 'green', 'orange', 'purple', 'brown', 'pink'};
 
-% Remove rows containing NaN values
-T = T(~isnan(T.Order) & ~isnan(T.Codage) & ~isnan(T.Proba), :);
+% Create figure
+figure('Position', [100, 100, 1200, 800]);
 
-% Get unique orders (variables)
-orders = unique(T.Order);
-nOrders = length(orders);
+% Number of cliques to display
+n_cliques = length(clique);
 
-% Initialize distribution for empty sum (value=0, prob=1)
-SumList = 0;
-ProbList = 1;
-
-% For each variable in order
-for k = 1:nOrders
-    ord = orders(k);
+% Create subplots for each clique
+for c = 1:n_cliques
+    subplot(2, ceil(n_cliques/2), c);
     
-    % Get states and probabilities for this variable
-    rows = find(T.Order == ord);
-    states = T.Codage(rows);
-    probs = T.Proba(rows);
+    current_clique = clique{c};
+    n_vars = length(current_clique);
     
-    % Normalize probabilities
-    probs = probs / sum(probs);
+    % Create node positions in a circle
+    theta = linspace(0, 2*pi*(1-1/n_vars), n_vars);
+    x_pos = cos(theta);
+    y_pos = sin(theta);
     
-    % Convolution with current distribution
-    newSumList = [];
-    newProbList = [];
+    % Draw nodes
+    hold on;
+    for i = 1:n_vars
+        % Draw circle for each variable
+        rectangle('Position', [x_pos(i)-0.1, y_pos(i)-0.1, 0.2, 0.2], ...
+                 'Curvature', [1, 1], 'FaceColor', colors{mod(i-1, length(colors))+1}, ...
+                 'EdgeColor', 'black', 'LineWidth', 2);
+        
+        % Add variable label
+        text(x_pos(i), y_pos(i), sprintf('X_%d', current_clique(i)), ...
+             'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle', ...
+             'FontSize', 10, 'FontWeight', 'bold', 'Color', 'white');
+    end
     
-    for i = 1:length(SumList)
-        for j = 1:length(states)
-            newSum = SumList(i) + states(j);
-            newProb = ProbList(i) * probs(j);
-            
-            newSumList(end+1) = newSum;
-            newProbList(end+1) = newProb;
+    % Draw edges to show dependencies
+    for i = 1:n_vars
+        for j = i+1:n_vars
+            % Draw line between connected variables
+            line([x_pos(i), x_pos(j)], [y_pos(i), y_pos(j)], ...
+                 'Color', 'black', 'LineWidth', 1.5, 'LineStyle', '-');
         end
     end
     
-    % Aggregate identical sums
-    [Z_vals, ~, idx] = unique(newSumList);
-    PZ = accumarray(idx, newProbList);
-    
-    SumList = Z_vals;
-    ProbList = PZ;
+    % Format subplot
+    axis equal;
+    axis off;
+    title(sprintf('Clique %d: Variables {%s}', c, ...
+          sprintf('%d ', current_clique)), 'FontSize', 12, 'FontWeight', 'bold');
+    xlim([-1.5, 1.5]);
+    ylim([-1.5, 1.5]);
 end
 
-% Compute cumulative distribution function
-FZ = cumsum(PZ);
+% Add overall title
+sgtitle('Decision Tree Visualization for Different Cliques', ...
+        'FontSize', 16, 'FontWeight', 'bold');
 
-% Save results to .mat file
-save('SingletonXi.mat', 'Z_vals', 'PZ', 'FZ');
+% Add legend
+legend_entries = cell(1, min(7, max(cellfun(@length, clique))));
+for i = 1:length(legend_entries)
+    legend_entries{i} = sprintf('Variable Type %d', i);
+end
+
+% Save figure
+saveas(gcf, 'tree_decision_cliques.png');
+print(gcf, 'tree_decision_cliques.eps', '-depsc');
+
 end
 \end{lstlisting}
 \end{matlab}
 
 \begin{figure}[h!]
     \centering
+    \includegraphics[width=1.2\textwidth]{../../assets/images/fig_Singletons.png}
+    \caption{Hình minh họa cho các biến trạng thái của bộ dữ liệu Singletons}
+    \label{fig:Singletons}
+\end{figure}
+
+Từ dữ liệu trên, tiến hành tính toán xác suất và phân phối tích lũy với chương trình Matlab sau:
+
+\subsection{Hàm tính phân phối của biến tổng hợp}
+
+\begin{matlab}
+    \begin{lstlisting}
+    function [Z_vals, PZ, FZ] = singleton_sum_distribution(filename)
+    % SINGLETON_SUM_DISTRIBUTION
+    % Reads singleton variable states and probabilities from an Excel file
+    % and computes the sum distribution (values, probabilities, and CDF).
+    %
+    % INPUT:
+    %   filename - path to Excel file containing variables data
+    %              Expected columns: Order, Codage, Proba
+    %
+    % OUTPUT:
+    %   Z_vals - possible values of the sum Z = sum_i X_i
+    %   PZ     - probabilities P(Z = z) for each z in Z_vals  
+    %   FZ     - cumulative distribution function F(z) = P(Z <= z)
+    %
+    % The function computes the distribution of Z = X1 + X2 + ... + Xn
+    % where Xi are discrete dependent random variables.
+
+    fprintf('Reading data from file: %s\n', filename);
+    
+    % Read the Excel file
+    try
+        T = readtable(filename);
+        fprintf('Successfully loaded %d rows\n', height(T));
+    catch ME
+        error('Failed to read file: %s', ME.message);
+    end
+
+    % Check required columns
+    required_cols = {'Order', 'Codage', 'Proba'};
+    for i = 1:length(required_cols)
+        if ~ismember(required_cols{i}, T.Properties.VariableNames)
+            error('Missing required column: %s', required_cols{i});
+        end
+    end
+
+    % Remove rows containing NaN values
+    valid_rows = ~isnan(T.Order) & ~isnan(T.Codage) & ~isnan(T.Proba);
+    T = T(valid_rows, :);
+    fprintf('After removing NaN: %d rows\n', height(T));
+
+    % Get unique orders (variables)
+    orders = unique(T.Order);
+    nOrders = length(orders);
+    fprintf('Number of variables: %d\n', nOrders);
+
+    % Initialize distribution for empty sum (value=0, prob=1)
+    SumList = 0;
+    ProbList = 1;
+
+    % For each variable in order
+    for k = 1:nOrders
+        ord = orders(k);
+        fprintf('Processing variable %d (Order = %d)\n', k, ord);
+        
+        % Get states and probabilities for this variable
+        rows = find(T.Order == ord);
+        states = T.Codage(rows);
+        probs = T.Proba(rows);
+        
+        % Check if probabilities sum to 1
+        prob_sum = sum(probs);
+        if abs(prob_sum - 1) > 1e-6
+            warning('Probabilities for variable %d sum to %.6f, normalizing', ord, prob_sum);
+            probs = probs / prob_sum;
+        end
+        
+        fprintf('  States: [%s]\n', sprintf('%.0f ', states));
+        fprintf('  Probabilities: [%s]\n', sprintf('%.4f ', probs));
+        
+        % Convolution with current distribution
+        newSumList = [];
+        newProbList = [];
+        
+        for i = 1:length(SumList)
+            for j = 1:length(states)
+                newSum = SumList(i) + states(j);
+                newProb = ProbList(i) * probs(j);
+                
+                newSumList(end+1) = newSum;
+                newProbList(end+1) = newProb;
+            end
+        end
+        
+        % Aggregate identical sums
+        [Z_vals, ~, idx] = unique(newSumList);
+        PZ = accumarray(idx, newProbList);
+        
+        SumList = Z_vals;
+        ProbList = PZ;
+        
+        fprintf('  Current distribution has %d possible values\n', length(Z_vals));
+    end
+
+    % Final results
+    Z_vals = SumList;
+    PZ = ProbList;
+    
+    % Compute cumulative distribution function
+    FZ = cumsum(PZ);
+
+    % Verify probability conservation
+    total_prob = sum(PZ);
+    fprintf('\nFinal distribution:\n');
+    fprintf('  Range: [%.0f, %.0f]\n', min(Z_vals), max(Z_vals));
+    fprintf('  Number of possible values: %d\n', length(Z_vals));
+    fprintf('  Total probability: %.10f\n', total_prob);
+    
+    if abs(total_prob - 1) > 1e-10
+        warning('Total probability deviates from 1: %.10f', total_prob);
+    end
+
+    % Save results to .mat file
+    output_file = 'SingletonXi.mat';
+    save(output_file, 'Z_vals', 'PZ', 'FZ', 'filename');
+    fprintf('Results saved to: %s\n', output_file);
+    
+    % Optional: Display first few values
+    n_display = min(10, length(Z_vals));
+    fprintf('\nFirst %d values:\n', n_display);
+    for i = 1:n_display
+        fprintf('  P(Z = %.0f) = %.6f, F(%.0f) = %.6f\n', ...
+                Z_vals(i), PZ(i), Z_vals(i), FZ(i));
+    end
+    
+    end
+    \end{lstlisting}
+\end{matlab}
+
+\subsection{Kiểm định Pearson cho dữ liệu Singletons}
+
+Kiểm định Pearson cho tập dữ liệu Singletons với chương trình Matlab được xây dựng như sau:
+
+\begin{matlab}
+    \begin{lstlisting}
+    function [sample, chi2_stat, p_value, reject_H0] = pearson_test_from_mat(matfile, N, n, alpha)
+    % PEARSON_TEST_FROM_MAT
+    % Load data from .mat file, compare theoretical vs empirical CDF,
+    % and perform Pearson chi-square goodness-of-fit test
+    %
+    % INPUT:
+    %   matfile - .mat file containing Z_vals, PZ, FZ
+    %   N       - sample size for generating empirical sample
+    %   n       - number of bins for chi-square test
+    %   alpha   - significance level (default: 0.05)
+    %
+    % OUTPUT:
+    %   sample    - generated sample from theoretical distribution
+    %   chi2_stat - chi-square test statistic
+    %   p_value   - p-value of the test
+    %   reject_H0 - boolean, true if H0 is rejected
+
+    if nargin < 4
+        alpha = 0.05;
+    end
+
+    % Load theoretical distribution
+    fprintf('Loading theoretical distribution from %s\n', matfile);
+    load(matfile, 'Z_vals', 'PZ', 'FZ');
+    
+    % Verify data integrity
+    if abs(sum(PZ) - 1) > 1e-10
+        error('Probabilities do not sum to 1: sum = %.10f', sum(PZ));
+    end
+    
+    % Generate sample from theoretical distribution
+    fprintf('Generating sample of size %d\n', N);
+    sample = discrete_sample(Z_vals, PZ, N);
+    
+    % Create bins for chi-square test
+    min_val = min(Z_vals);
+    max_val = max(Z_vals);
+    
+    % Method 1: Equal-width bins
+    bin_edges = linspace(min_val - 0.5, max_val + 0.5, n + 1);
+    
+    % Count observed frequencies
+    [observed_counts, ~] = histcounts(sample, bin_edges);
+    
+    % Calculate expected frequencies
+    expected_counts = zeros(1, n);
+    for i = 1:n
+        bin_start = bin_edges(i);
+        bin_end = bin_edges(i + 1);
+        
+        % Find theoretical probabilities in this bin
+        bin_prob = 0;
+        for j = 1:length(Z_vals)
+            if Z_vals(j) > bin_start && Z_vals(j) <= bin_end
+                bin_prob = bin_prob + PZ(j);
+            end
+        end
+        expected_counts(i) = N * bin_prob;
+    end
+    
+    % Combine bins with low expected frequency
+    min_expected = 5;
+    combined_observed = [];
+    combined_expected = [];
+    
+    temp_obs = 0;
+    temp_exp = 0;
+    
+    for i = 1:n
+        temp_obs = temp_obs + observed_counts(i);
+        temp_exp = temp_exp + expected_counts(i);
+        
+        if temp_exp >= min_expected || i == n
+            combined_observed(end+1) = temp_obs;
+            combined_expected(end+1) = temp_exp;
+            temp_obs = 0;
+            temp_exp = 0;
+        end
+    end
+    
+    % Calculate chi-square statistic
+    k = length(combined_observed);  % number of bins after combining
+    chi2_stat = sum((combined_observed - combined_expected).^2 ./ combined_expected);
+    
+    % Degrees of freedom
+    df = k - 1;
+    
+    % Calculate p-value
+    p_value = 1 - chi2cdf(chi2_stat, df);
+    
+    % Decision
+    reject_H0 = p_value < alpha;
+    
+    % Display results
+    fprintf('\n=== PEARSON CHI-SQUARE TEST RESULTS ===\n');
+    fprintf('Sample size: %d\n', N);
+    fprintf('Number of bins (after combining): %d\n', k);
+    fprintf('Chi-square statistic: %.6f\n', chi2_stat);
+    fprintf('Degrees of freedom: %d\n', df);
+    fprintf('P-value: %.6f\n', p_value);
+    fprintf('Significance level: %.3f\n', alpha);
+    
+    if reject_H0
+        fprintf('Decision: REJECT H0 (data does not fit theoretical distribution)\n');
+    else
+        fprintf('Decision: FAIL TO REJECT H0 (data fits theoretical distribution)\n');
+    end
+    
+    % Display bin details
+    fprintf('\nBin details:\n');
+    fprintf('Bin\tObserved\tExpected\tContribution\n');
+    for i = 1:k
+        contrib = (combined_observed(i) - combined_expected(i))^2 / combined_expected(i);
+        fprintf('%d\t%.0f\t\t%.2f\t\t%.4f\n', i, combined_observed(i), combined_expected(i), contrib);
+    end
+    
+    end
+
+    function sample = discrete_sample(values, probabilities, n)
+    % Generate n samples from discrete distribution
+    cumprob = cumsum(probabilities);
+    sample = zeros(n, 1);
+    
+    for i = 1:n
+        u = rand();
+        idx = find(cumprob >= u, 1, 'first');
+        sample(i) = values(idx);
+    end
+    end
+    \end{lstlisting}
+\end{matlab}
+
+\begin{figure}[h!]
+    %\centering
+    \includegraphics[width=0.75\textwidth]{../../assets/images/chay_singleton.png}
+\end{figure}
+
+\subsection*{Nhận xét kết quả kiểm định Pearson Chi-square}
+
+Kết quả kiểm định cho thấy sự phù hợp giữa phân phối lý thuyết và phân phối thực nghiệm. Biểu đồ so sánh được thể hiện trong Hình \ref{fig:Sing_comparison}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../../assets/images/Singletons_Pearson.png}
+    \caption{So sánh phân phối tích lũy thực nghiệm và lý thuyết}
+    \label{fig:Sing_comparison}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
     \includegraphics[width=0.8\linewidth]{../../assets/images/fig_Singletons.png}
     \caption{Sơ đồ quyết định cho dữ liệu Singleton}
+\end{figure}
+
+Sử dụng lại bộ dữ liệu Singletons ở Áp dụng 2. Tiến hành kiểm định K-S test với thuật toán được xây dựng trên Matlab như sau:
+
+\subsection{Kiểm định Kolmogorov-Smirnov cho dữ liệu Singletons}
+
+\begin{matlab}
+    \begin{lstlisting}
+function [Dn, dn, h_ks, p_ks, ksstat, cv_ks, chi2stat, p_chi2, chi2_crit] = PearsonChi2_KS(matfile, n, alpha, nbins, tail)
+% PearsonChi2_KS: Performs the Pearson Chi-square and Kolmogorov–Smirnov test
+%
+% INPUT:
+%   matfile - .mat file containing theoretical distribution
+%   n       - sample size
+%   alpha   - significance level
+%   nbins   - number of bins for chi-square test
+%   tail    - 'both', 'larger', or 'smaller' for KS test
+%
+% OUTPUT:
+%   Dn      - Kolmogorov-Smirnov supremum statistic
+%   dn      - integrated distance measure
+%   h_ks    - KS test decision (1 = reject H0)
+%   p_ks    - KS test p-value
+%   ksstat  - KS test statistic
+%   cv_ks   - KS critical value
+%   chi2stat - Chi-square test statistic
+%   p_chi2  - Chi-square p-value
+%   chi2_crit - Chi-square critical value
+
+if nargin < 5
+    tail = 'both';
+end
+if nargin < 4
+    nbins = 10;
+end
+if nargin < 3
+    alpha = 0.05;
+end
+
+% Load theoretical distribution
+fprintf('Loading data from %s\n', matfile);
+load(matfile, 'Z_vals', 'PZ', 'FZ');
+
+% Generate sample from theoretical distribution
+sample = generate_sample_from_distribution(Z_vals, PZ, n);
+
+% === PEARSON CHI-SQUARE TEST ===
+fprintf('\n=== PERFORMING PEARSON CHI-SQUARE TEST ===\n');
+
+% Create histogram
+[observed, edges] = histcounts(sample, nbins);
+bin_centers = (edges(1:end-1) + edges(2:end)) / 2;
+
+% Calculate expected frequencies
+expected = zeros(1, nbins);
+for i = 1:nbins
+    bin_start = edges(i);
+    bin_end = edges(i+1);
+    
+    % Find probability mass in this bin
+    bin_prob = 0;
+    for j = 1:length(Z_vals)
+        if Z_vals(j) >= bin_start && Z_vals(j) < bin_end
+            bin_prob = bin_prob + PZ(j);
+        elseif i == nbins && Z_vals(j) == bin_end % include last point in last bin
+            bin_prob = bin_prob + PZ(j);
+        end
+    end
+    expected(i) = n * bin_prob;
+end
+
+% Combine bins with expected frequency < 5
+min_expected = 5;
+combined_obs = [];
+combined_exp = [];
+temp_obs = 0;
+temp_exp = 0;
+
+for i = 1:nbins
+    temp_obs = temp_obs + observed(i);
+    temp_exp = temp_exp + expected(i);
+    
+    if temp_exp >= min_expected || i == nbins
+        combined_obs(end+1) = temp_obs;
+        combined_exp(end+1) = temp_exp;
+        temp_obs = 0;
+        temp_exp = 0;
+    end
+end
+
+% Calculate chi-square statistic
+k_final = length(combined_obs);
+chi2stat = sum((combined_obs - combined_exp).^2 ./ combined_exp);
+df_chi2 = k_final - 1;
+p_chi2 = 1 - chi2cdf(chi2stat, df_chi2);
+chi2_crit = chi2inv(1-alpha, df_chi2);
+
+% === KOLMOGOROV-SMIRNOV TEST ===
+fprintf('\n=== PERFORMING KOLMOGOROV-SMIRNOV TEST ===\n');
+
+% Create empirical CDF
+[f_emp, x_emp] = ecdf(sample);
+
+% Calculate theoretical CDF at empirical points
+f_theo = zeros(size(x_emp));
+for i = 1:length(x_emp)
+    % Find theoretical CDF value
+    idx = find(Z_vals <= x_emp(i), 1, 'last');
+    if isempty(idx)
+        f_theo(i) = 0;
+    else
+        f_theo(i) = FZ(idx);
+    end
+end
+
+% Calculate KS statistics
+switch lower(tail)
+    case 'both'
+        ksstat = max(abs(f_emp - f_theo));
+    case 'larger'
+        ksstat = max(f_emp - f_theo);
+    case 'smaller'
+        ksstat = max(f_theo - f_emp);
+end
+
+% Supremum statistic (two-sided)
+Dn = max(abs(f_emp - f_theo));
+
+% Integrated statistic (Cramér-von Mises type)
+if length(x_emp) > 1
+    dn = trapz(x_emp, (f_emp - f_theo).^2);
+else
+    dn = 0;
+end
+
+% Critical value and p-value (asymptotic)
+cv_ks = sqrt(-0.5 * log(alpha/2)) / sqrt(n);
+lambda = sqrt(n) * ksstat;
+p_ks = 2 * sum((-1).^(0:100) .* exp(-2*(1:101).^2*lambda^2));
+p_ks = max(0, min(1, p_ks));
+
+% Decision
+h_ks = ksstat > cv_ks;
+
+% === DISPLAY RESULTS ===
+fprintf('\n=== RESULTS SUMMARY ===\n');
+fprintf('Sample size: %d\n', n);
+fprintf('Significance level: %.3f\n', alpha);
+
+fprintf('\n--- Chi-square Test ---\n');
+fprintf('Chi-square statistic: %.6f\n', chi2stat);
+fprintf('Degrees of freedom: %d\n', df_chi2);
+fprintf('P-value: %.6f\n', p_chi2);
+fprintf('Critical value: %.6f\n', chi2_crit);
+fprintf('Decision: %s\n', ternary(p_chi2 < alpha, 'Reject H0', 'Fail to reject H0'));
+
+fprintf('\n--- Kolmogorov-Smirnov Test ---\n');
+fprintf('KS statistic: %.6f\n', ksstat);
+fprintf('Supremum distance (Dn): %.6f\n', Dn);
+fprintf('Integrated distance (dn): %.6f\n', dn);
+fprintf('Critical value: %.6f\n', cv_ks);
+fprintf('P-value: %.6f\n', p_ks);
+fprintf('Decision: %s\n', ternary(h_ks, 'Reject H0', 'Fail to reject H0'));
+
+% === PLOTTING ===
+figure('Position', [100, 100, 1200, 500]);
+
+% Plot 1: Histogram vs Theoretical
+subplot(1,2,1);
+bar(bin_centers, observed/n, 'FaceAlpha', 0.7, 'EdgeColor', 'black');
+hold on;
+% Plot theoretical PMF as stems
+stem(Z_vals, PZ, 'r', 'LineWidth', 2, 'MarkerSize', 8);
+xlabel('Value');
+ylabel('Probability');
+title('Empirical vs Theoretical Distribution');
+legend('Empirical (histogram)', 'Theoretical (PMF)', 'Location', 'best');
+grid on;
+
+% Plot 2: CDF Comparison
+subplot(1,2,2);
+plot(x_emp, f_emp, 'b-', 'LineWidth', 2);
+hold on;
+plot(Z_vals, FZ, 'r-', 'LineWidth', 2);
+xlabel('Value');
+ylabel('Cumulative Probability');
+title('Empirical vs Theoretical CDF');
+legend('Empirical CDF', 'Theoretical CDF', 'Location', 'best');
+grid on;
+
+% Highlight maximum difference
+[~, max_idx] = max(abs(f_emp - f_theo));
+if ~isempty(max_idx)
+    plot([x_emp(max_idx), x_emp(max_idx)], [f_emp(max_idx), f_theo(max_idx)], ...
+         'k--', 'LineWidth', 2);
+    text(x_emp(max_idx), (f_emp(max_idx) + f_theo(max_idx))/2, ...
+         sprintf('Max diff = %.4f', Dn), 'FontSize', 10, 'BackgroundColor', 'white');
+end
+
+sgtitle(sprintf('Goodness-of-Fit Tests (n=%d, \\alpha=%.3f)', n, alpha));
+
+end
+
+function sample = generate_sample_from_distribution(values, probs, n)
+% Generate sample from discrete distribution using inverse transform
+cumprobs = cumsum(probs);
+sample = zeros(n, 1);
+
+for i = 1:n
+    u = rand();
+    idx = find(cumprobs >= u, 1, 'first');
+    sample(i) = values(idx);
+end
+end
+
+function result = ternary(condition, true_val, false_val)
+% Ternary operator
+if condition
+    result = true_val;
+else
+    result = false_val;
+end
+end
+    \end{lstlisting}
+\end{matlab}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{../../assets/images/KS_fig_Singletons.png}
+    \caption{So sánh phân phối tích lũy thực nghiệm và lý thuyết với K-S test}
+    \label{fig:Sing_comparisonKS}
+\end{figure}
+
+\subsection{Áp dụng cho bộ dữ liệu Binaires}
+
+\begin{matlab}
+\begin{lstlisting}[caption={Hàm vẽ sơ đồ các mô hình độc lập hoặc phụ thuộc}]
+function tree_decision(clique)
+% TREE_DECISION  Plot decision tree graphs for different cliques
+%
+% This function visualizes the dependency structure of variables
+% in different cliques for the Binaires dataset
+%
+% INPUT:
+%   clique - cell array where each cell contains variable indices
+%            forming a clique in the graphical model
+
+if nargin < 1
+    % Default cliques for Binaires dataset
+    clique = {[1, 2], [2, 3], [3, 4], [1, 4]};
+end
+
+% Color scheme for different variable types
+colors = [0.8 0.2 0.2;   % Red
+          0.2 0.8 0.2;   % Green  
+          0.2 0.2 0.8;   % Blue
+          0.8 0.8 0.2;   % Yellow
+          0.8 0.2 0.8;   % Magenta
+          0.2 0.8 0.8;   % Cyan
+          0.5 0.5 0.5];  % Gray
+
+% Get all unique variables
+all_vars = unique(cell2mat(clique));
+n_vars = length(all_vars);
+
+% Create figure
+figure('Position', [100, 100, 1000, 800]);
+
+% Create adjacency matrix for the graph
+adj_matrix = zeros(n_vars, n_vars);
+for c = 1:length(clique)
+    current_clique = clique{c};
+    % Add edges between all pairs in the clique
+    for i = 1:length(current_clique)
+        for j = i+1:length(current_clique)
+            var1 = find(all_vars == current_clique(i));
+            var2 = find(all_vars == current_clique(j));
+            adj_matrix(var1, var2) = 1;
+            adj_matrix(var2, var1) = 1;
+        end
+    end
+end
+
+% Position nodes in a circle
+theta = linspace(0, 2*pi*(1-1/n_vars), n_vars);
+radius = 2;
+x_pos = radius * cos(theta);
+y_pos = radius * sin(theta);
+
+% Draw edges first (so they appear behind nodes)
+hold on;
+for i = 1:n_vars
+    for j = i+1:n_vars
+        if adj_matrix(i, j) == 1
+            plot([x_pos(i), x_pos(j)], [y_pos(i), y_pos(j)], ...
+                 'k-', 'LineWidth', 2);
+        end
+    end
+end
+
+% Draw nodes
+node_size = 0.3;
+for i = 1:n_vars
+    var_idx = all_vars(i);
+    color_idx = mod(var_idx - 1, size(colors, 1)) + 1;
+    
+    % Draw circle
+    rectangle('Position', [x_pos(i)-node_size/2, y_pos(i)-node_size/2, ...
+                          node_size, node_size], ...
+             'Curvature', [1, 1], ...
+             'FaceColor', colors(color_idx, :), ...
+             'EdgeColor', 'black', ...
+             'LineWidth', 2);
+    
+    % Add variable label
+    text(x_pos(i), y_pos(i), sprintf('X_%d', var_idx), ...
+         'HorizontalAlignment', 'center', ...
+         'VerticalAlignment', 'middle', ...
+         'FontSize', 12, ...
+         'FontWeight', 'bold', ...
+         'Color', 'white');
+end
+
+% Format plot
+axis equal;
+axis off;
+xlim([-3, 3]);
+ylim([-3, 3]);
+
+% Add title and clique information
+title('Binaires Dataset: Variable Dependencies', ...
+      'FontSize', 16, 'FontWeight', 'bold');
+
+% Add clique information as text
+clique_text = 'Cliques: ';
+for c = 1:length(clique)
+    clique_text = [clique_text, sprintf('{%s}', ...
+                   sprintf('%d,', clique{c}))];
+    if c < length(clique)
+        clique_text = [clique_text, ' '];
+    end
+end
+% Remove trailing comma
+clique_text = regexprep(clique_text, ',$', '');
+clique_text = regexprep(clique_text, ',}', '}');
+
+text(0, -2.7, clique_text, ...
+     'HorizontalAlignment', 'center', ...
+     'FontSize', 12, ...
+     'BackgroundColor', 'white', ...
+     'EdgeColor', 'black');
+
+% Save the plot
+saveas(gcf, 'binaires_dependency_graph.png', 'png');
+print(gcf, 'binaires_dependency_graph.eps', '-depsc');
+
+end
+\end{lstlisting}
+\end{matlab}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1.2\linewidth]{../../assets/images/fig_Binaires.png}
+    \caption{Sơ đồ mô hình Binaires}
+    \label{fig:Binaires}
+\end{figure}
+
+\begin{matlab}
+    \begin{lstlisting}
+        function [Z_vals, PZ, FZ] = binaires_sum_distribution(filename, namesave)
+% Computes the distribution of the sum Z = sum_i X_i for dependent discrete variables X_i
+%
+% INPUT:
+%   filename - Excel file containing variable data (Order, Codage, Proba columns)
+%   namesave - name for saving the .mat file (optional)
+%
+% OUTPUT:
+%   Z_vals - possible values of the sum Z
+%   PZ     - probability mass function P(Z = z)
+%   FZ     - cumulative distribution function F(z)
+
+if nargin < 2
+    namesave = 'BinairesXi';
+end
+
+fprintf('=== BINAIRES SUM DISTRIBUTION COMPUTATION ===\n');
+fprintf('Loading data from: %s\n', filename);
+
+% Read data
+try
+    T = readtable(filename);
+    fprintf('Successfully read %d rows from file\n', height(T));
+catch ME
+    error('Failed to read file %s: %s', filename, ME.message);
+end
+
+% Validate required columns
+required_cols = {'Order', 'Codage', 'Proba'};
+missing_cols = setdiff(required_cols, T.Properties.VariableNames);
+if ~isempty(missing_cols)
+    error('Missing required columns: %s', strjoin(missing_cols, ', '));
+end
+
+% Clean data - remove NaN values
+valid_rows = ~isnan(T.Order) & ~isnan(T.Codage) & ~isnan(T.Proba);
+T_clean = T(valid_rows, :);
+fprintf('After cleaning: %d valid rows\n', height(T_clean));
+
+% Get variable information
+orders = unique(T_clean.Order);
+n_variables = length(orders);
+fprintf('Number of variables: %d\n', n_variables);
+
+% Display variable information
+for i = 1:n_variables
+    ord = orders(i);
+    var_rows = T_clean.Order == ord;
+    states = T_clean.Codage(var_rows);
+    probs = T_clean.Proba(var_rows);
+    
+    fprintf('Variable %d: %d states, prob sum = %.6f\n', ...
+            ord, length(states), sum(probs));
+end
+
+% Initialize with empty sum
+Z_current = 0;
+P_current = 1;
+
+% Process each variable
+fprintf('\nProcessing variables...\n');
+for var_idx = 1:n_variables
+    ord = orders(var_idx);
+    fprintf('Processing variable %d (order %d)...\n', var_idx, ord);
+    
+    % Get states and probabilities for current variable
+    var_mask = T_clean.Order == ord;
+    states = T_clean.Codage(var_mask);
+    probs = T_clean.Proba(var_mask);
+    
+    % Normalize probabilities if needed
+    prob_sum = sum(probs);
+    if abs(prob_sum - 1) > 1e-6
+        fprintf('  Normalizing probabilities (sum was %.6f)\n', prob_sum);
+        probs = probs / prob_sum;
+    end
+    
+    % Convolution step
+    Z_new = [];
+    P_new = [];
+    
+    for i = 1:length(Z_current)
+        for j = 1:length(states)
+            Z_new(end+1) = Z_current(i) + states(j);
+            P_new(end+1) = P_current(i) * probs(j);
+        end
+    end
+    
+    % Aggregate identical values
+    [Z_current, ~, idx] = unique(Z_new);
+    P_current = accumarray(idx, P_new);
+    
+    fprintf('  Current distribution has %d unique values\n', length(Z_current));
+    fprintf('  Range: [%.0f, %.0f]\n', min(Z_current), max(Z_current));
+end
+
+% Final results
+Z_vals = Z_current;
+PZ = P_current;
+FZ = cumsum(PZ);
+
+% Verification
+total_prob = sum(PZ);
+fprintf('\nFinal Results:\n');
+fprintf('Number of possible sum values: %d\n', length(Z_vals));
+fprintf('Sum range: [%.0f, %.0f]\n', min(Z_vals), max(Z_vals));
+fprintf('Total probability: %.10f\n', total_prob);
+
+if abs(total_prob - 1) > 1e-8
+    warning('Probability sum deviates from 1 by %.2e', abs(total_prob - 1));
+end
+
+% Save results
+mat_filename = [namesave, '.mat'];
+save(mat_filename, 'Z_vals', 'PZ', 'FZ', 'filename');
+fprintf('Results saved to: %s\n', mat_filename);
+
+% Display sample of results
+n_show = min(10, length(Z_vals));
+fprintf('\nFirst %d values:\n', n_show);
+fprintf('Value\tProbability\tCumulative\n');
+for i = 1:n_show
+    fprintf('%.0f\t%.6f\t\t%.6f\n', Z_vals(i), PZ(i), FZ(i));
+end
+
+if length(Z_vals) > n_show
+    fprintf('... (%d more values)\n', length(Z_vals) - n_show);
+end
+
+end
+        \end{lstlisting}
+\end{matlab}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1.2\linewidth]{../../assets/images/fig_Meteo.png}
+    \caption{Sơ đồ mô hình Meteo}
+    \label{fig:Meteo}
 \end{figure}
 
 \begin{figure}[h!]
@@ -568,8 +1282,8 @@ Xét bài toán kiểm soát chất lượng trong sản xuất, với các bi�
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\linewidth]{../../assets/logos/university-logo.png}
-    \caption{Sơ đồ mô hình kiểm soát chất lượng}
+    \includegraphics[width=0.8\linewidth]{../../assets/images/X_Y_PTest.png}
+    \caption{Kết quả kiểm định thống kê cho dữ liệu thực tế}
 \end{figure}
 
 \subsubsection*{Quy trình phân tích}
@@ -594,8 +1308,8 @@ Khi thực hiện nhiều kiểm định đồng thời, cần điều chỉnh m
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\linewidth]{../../assets/logos/university-logo.png}
-    \caption{Biểu đồ so sánh các phương pháp điều chỉnh đa so sánh}
+    \includegraphics[width=0.8\linewidth]{../../assets/images/fig_Meteo.png}
+    \caption{Phân tích dữ liệu meteorological với nhiều phương pháp kiểm định}
 \end{figure}
 
 \section{Kết luận chương}

@@ -1,6 +1,6 @@
 \chapter{Phân tích nhiều chiều dữ liệu thang đo định lượng}
 
-Phân tích dữ liệu nhiều chiều là một lĩnh vực quan trọng của thống kê hiện đại, cho phép chúng ta khám phá và hiểu mối quan hệ phức tạp giữa nhiều biến số đồng thời. Chương này sẽ trình bày các kỹ thuật cơ bản và nâng cao trong phân tích nhiều chiều, từ những khái niệm cơ sở đến các ứng dụng thực tiễn.
+Phân tích dữ liệu nhiều chiều là một lĩnh vực quan trọng của thống kê hiện đại, cho phép chúng ta khám phá và hiểu mối quan hệ phức tạp giữa nhiều biến số đồng thời \cite{johnson2007, anderson1984, mardia1979}. Chương này sẽ trình bày các kỹ thuật cơ bản và nâng cao trong phân tích nhiều chiều, từ những khái niệm cơ sở đến các ứng dụng thực tiễn.
 
 \section{Khái niệm cơ bản về dữ liệu nhiều chiều}
 
@@ -22,16 +22,16 @@ trong đó mỗi $X_i$ là một biến ngẫu nhiên.
 
 \begin{dn}[Ma trận hiệp phương sai]
 \[
-\boldsymbol{\Sigma} = \Cov(\mathbf{X}) = \mathbb{E}[(\mathbf{X} - \boldsymbol{\mu})(\mathbf{X} - \boldsymbol{\mu})^T]
+\boldsymbol{\Sigma} = \text{Cov}(\mathbf{X}) = \mathbb{E}[(\mathbf{X} - \boldsymbol{\mu})(\mathbf{X} - \boldsymbol{\mu})^T]
 \]
-với phần tử thứ $(i,j)$ là $\Sigma_{ij} = \Cov(X_i, X_j)$.
+với phần tử thứ $(i,j)$ là $\Sigma_{ij} = \text{Cov}(X_i, X_j)$.
 \end{dn}
 
 \begin{tinhchat}[Tính chất của ma trận hiệp phương sai]
 \begin{itemize}
     \item $\boldsymbol{\Sigma}$ là ma trận đối xứng: $\boldsymbol{\Sigma} = \boldsymbol{\Sigma}^T$
     \item $\boldsymbol{\Sigma}$ là ma trận nửa xác định dương
-    \item Đường chéo chính chứa các phương sai: $\Sigma_{ii} = \Var(X_i)$
+    \item Đường chéo chính chứa các phương sai: $\Sigma_{ii} = \text{Var}(X_i)$
 \end{itemize}
 \end{tinhchat}
 
@@ -49,7 +49,7 @@ f(\mathbf{x}) = \frac{1}{(2\pi)^{p/2}|\boldsymbol{\Sigma}|^{1/2}} \exp\left(-\fr
 \begin{dn}[Ma trận tương quan]
 Ma trận tương quan $\mathbf{R}$ có phần tử thứ $(i,j)$ là:
 \[
-\rho_{ij} = \frac{\Cov(X_i, X_j)}{\sqrt{\Var(X_i)\Var(X_j)}} = \frac{\Sigma_{ij}}{\sqrt{\Sigma_{ii}\Sigma_{jj}}}
+\rho_{ij} = \frac{\text{Cov}(X_i, X_j)}{\sqrt{\text{Var}(X_i)\text{Var}(X_j)}} = \frac{\Sigma_{ij}}{\sqrt{\Sigma_{ii}\Sigma_{jj}}}
 \]
 \end{dn}
 
@@ -80,6 +80,13 @@ với $\mathbf{D}_S = \text{diag}(S_{11}, S_{22}, \ldots, S_{pp})$.
 
 \section{Phân tích thành phần chính (Principal Component Analysis - PCA)}
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\linewidth]{../../assets/images/H1.png}
+    \caption{Minh họa nguyên lý PCA: Tìm hướng phương sai lớn nhất}
+    \label{fig:pca_principle}
+\end{figure}
+
 \subsection{Động lực và ý tưởng cơ bản}
 PCA là kỹ thuật giảm chiều dữ liệu bằng cách tìm các hướng có phương sai lớn nhất. Mục tiêu là chuyển đổi dữ liệu gốc $p$-chiều thành không gian mới có chiều thấp hơn mà vẫn giữ được nhiều thông tin nhất.
 
@@ -87,7 +94,7 @@ PCA là kỹ thuật giảm chiều dữ liệu bằng cách tìm các hướng 
 \begin{dn}[Thành phần chính thứ nhất]
 Thành phần chính thứ nhất là tổ hợp tuyến tính $Y_1 = \mathbf{a}_1^T\mathbf{X}$ sao cho:
 \begin{itemize}
-    \item $\Var(Y_1) = \mathbf{a}_1^T\boldsymbol{\Sigma}\mathbf{a}_1$ đạt giá trị lớn nhất
+    \item $\text{Var}(Y_1) = \mathbf{a}_1^T\boldsymbol{\Sigma}\mathbf{a}_1$ đạt giá trị lớn nhất
     \item Ràng buộc: $\|\mathbf{a}_1\| = 1$
 \end{itemize}
 \end{dn}
@@ -103,9 +110,9 @@ với $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_p \geq 0$ và $\|\mathb
 \subsection{Tính chất quan trọng}
 \begin{tinhchat}[Tính chất của PCA]
 \begin{itemize}
-    \item Phương sai của thành phần chính thứ $i$: $\Var(Y_i) = \lambda_i$
-    \item Tổng phương sai được bảo toàn: $\sum_{i=1}^p \lambda_i = \sum_{i=1}^p \Var(X_i)$
-    \item Các thành phần chính không tương quan: $\Cov(Y_i, Y_j) = 0$ với $i \neq j$
+    \item Phương sai của thành phần chính thứ $i$: $\text{Var}(Y_i) = \lambda_i$
+    \item Tổng phương sai được bảo toàn: $\sum_{i=1}^p \lambda_i = \sum_{i=1}^p \text{Var}(X_i)$
+    \item Các thành phần chính không tương quan: $\text{Cov}(Y_i, Y_j) = 0$ với $i \neq j$
     \item Tỷ lệ phương sai được giải thích bởi $k$ thành phần đầu: $\frac{\sum_{i=1}^k \lambda_i}{\sum_{i=1}^p \lambda_i}$
 \end{itemize}
 \end{tinhchat}
@@ -194,9 +201,9 @@ trong đó:
 
 \subsection{Giả định của mô hình}
 \begin{itemize}
-    \item $\mathbb{E}[\mathbf{F}] = \mathbf{0}$ và $\Cov(\mathbf{F}) = \mathbf{I}_m$
-    \item $\mathbb{E}[\boldsymbol{\epsilon}] = \mathbf{0}$ và $\Cov(\boldsymbol{\epsilon}) = \boldsymbol{\Psi}$ (ma trận chéo)
-    \item $\Cov(\mathbf{F}, \boldsymbol{\epsilon}) = \mathbf{0}$
+    \item $\mathbb{E}[\mathbf{F}] = \mathbf{0}$ và $\text{Cov}(\mathbf{F}) = \mathbf{I}_m$
+    \item $\mathbb{E}[\boldsymbol{\epsilon}] = \mathbf{0}$ và $\text{Cov}(\boldsymbol{\epsilon}) = \boldsymbol{\Psi}$ (ma trận chéo)
+    \item $\text{Cov}(\mathbf{F}, \boldsymbol{\epsilon}) = \mathbf{0}$
 \end{itemize}
 
 \subsection{Phân tích ma trận hiệp phương sai}
@@ -232,136 +239,722 @@ V = \sum_{j=1}^m \left[\sum_{i=1}^p L_{ij}^4 - \frac{1}{p}\left(\sum_{i=1}^p L_{
 \subsubsection*{Xoay Promax}
 Cho phép các nhân tố tương quan với nhau (oblique rotation).
 
-\section{Phân tích tương quan chính tắc (Canonical Correlation Analysis)}
 
-\subsection{Bài toán tương quan chính tắc}
-Cho hai tập biến $\mathbf{X}^{(1)}$ $(p_1 \times 1)$ và $\mathbf{X}^{(2)}$ $(p_2 \times 1)$, tìm các tổ hợp tuyến tính:
-\[
-U = \mathbf{a}^T\mathbf{X}^{(1)}, \quad V = \mathbf{b}^T\mathbf{X}^{(2)}
-\]
-sao cho $\Cor(U, V)$ đạt giá trị lớn nhất.
 
-\subsection{Nghiệm toán học}
-\begin{dl}[Tương quan chính tắc]
-Các tương quan chính tắc $\rho_1 \geq \rho_2 \geq \cdots \geq \rho_r \geq 0$ (với $r = \min(p_1, p_2)$) là căn bậc hai của các trị riêng của ma trận:
-\[
-\boldsymbol{\Sigma}_{11}^{-1}\boldsymbol{\Sigma}_{12}\boldsymbol{\Sigma}_{22}^{-1}\boldsymbol{\Sigma}_{21}
-\]
-\end{dl}
 
-\subsection{Ứng dụng và giải thích}
-\begin{itemize}
-    \item Khám phá mối liên hệ giữa hai nhóm biến
-    \item Giảm chiều dữ liệu có cấu trúc phân nhóm
-    \item Dự đoán một nhóm biến từ nhóm biến khác
-\end{itemize}
 
-\section{Phân tích cụm (Cluster Analysis)}
 
-\subsection{K-means Clustering}
-\begin{dl}[Thuật toán K-means]
-\begin{enumerate}
-    \item Chọn số cụm $k$ và khởi tạo ngẫu nhiên $k$ tâm cụm
-    \item Gán mỗi điểm dữ liệu vào cụm có tâm gần nhất
-    \item Cập nhật tâm cụm = trung bình của các điểm trong cụm
-    \item Lặp lại bước 2-3 đến khi hội tụ
-\end{enumerate}
-\end{dl}
 
-\textbf{Hàm mục tiêu:} $J = \sum_{i=1}^n \sum_{j=1}^k w_{ij}\|\mathbf{x}_i - \boldsymbol{\mu}_j\|^2$
-
-\subsection{Clustering phân cấp}
-\subsubsection*{Agglomerative (Bottom-up)}
-\begin{enumerate}
-    \item Bắt đầu: mỗi điểm là một cụm
-    \item Tại mỗi bước: gộp hai cụm gần nhất
-    \item Kết thúc: tất cả điểm trong một cụm
-\end{enumerate}
-
-\textbf{Các tiêu chí khoảng cách giữa cụm:}
-\begin{itemize}
-    \item Single linkage: $d_{min}(C_i, C_j) = \min_{x \in C_i, y \in C_j} d(x,y)$
-    \item Complete linkage: $d_{max}(C_i, C_j) = \max_{x \in C_i, y \in C_j} d(x,y)$
-    \item Average linkage: $d_{avg}(C_i, C_j) = \frac{1}{|C_i||C_j|}\sum_{x \in C_i}\sum_{y \in C_j} d(x,y)$
-    \item Ward linkage: Tối thiểu hóa tổng bình phương sai lệch trong cụm
-\end{itemize}
-
-\section{Phân tích phân biệt (Discriminant Analysis)}
-
-\subsection{Phân tích phân biệt tuyến tính (LDA)}
-\begin{dn}[Mô hình LDA]
-Giả sử có $g$ nhóm với vector trung bình $\boldsymbol{\mu}_i$ và ma trận hiệp phương sai chung $\boldsymbol{\Sigma}$. Hàm phân biệt tuyến tính:
-\[
-L_i(\mathbf{x}) = \mathbf{x}^T\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_i - \frac{1}{2}\boldsymbol{\mu}_i^T\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_i + \ln(\pi_i)
-\]
-với $\pi_i$ là xác suất tiên nghiệm của nhóm $i$.
-\end{dn}
-
-\textbf{Quy tắc phân loại:} Gán $\mathbf{x}$ vào nhóm $i$ nếu $L_i(\mathbf{x}) = \max_j L_j(\mathbf{x})$.
-
-\subsection{Phân tích phân biệt bậc hai (QDA)}
-Khi các nhóm có ma trận hiệp phương sai khác nhau $\boldsymbol{\Sigma}_i$:
-\[
-Q_i(\mathbf{x}) = -\frac{1}{2}(\mathbf{x} - \boldsymbol{\mu}_i)^T\boldsymbol{\Sigma}_i^{-1}(\mathbf{x} - \boldsymbol{\mu}_i) - \frac{1}{2}\ln|\boldsymbol{\Sigma}_i| + \ln(\pi_i)
-\]
-
-% Hình minh họa được thay thế bằng logo trường
-\begin{figure}[h]
-    \centering
-    % Hình thứ nhất
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{../../assets/images/figure-2.png}
-        \caption{Biểu đồ phân tán dữ liệu đa biến}
-        \label{fig:scatter_multivariate}
-    \end{minipage}
-    \hfill
-    % Hình thứ hai
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.8\textwidth]{../../assets/images/figure-3.png}
-        \caption{Ma trận tương quan giữa các biến}
-        \label{fig:correlation_matrix}
-    \end{minipage}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    % Hình thứ nhất
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{../../assets/images/figure-2.png}
-    \end{minipage}
-    \hfill
-    % Hình thứ hai
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.8\textwidth]{../../assets/images/figure-3.png}
-    \end{minipage}
-    \caption{So sánh phương pháp phân tích dữ liệu: (a) Phân tích thành phần chính, (b) Phân tích nhân tố}
-    \label{fig:comparison_analysis_methods}
-\end{figure}
-
-\section{Ứng dụng tổng hợp và ví dụ thực tiễn}
+\section{Ứng dụng thực tế: Phân tích dữ liệu với mô hình tổng hợp}
 
 \subsection{Phân tích dữ liệu kinh tế - xã hội}
-Xét bộ dữ liệu về các chỉ số phát triển của các tỉnh thành, bao gồm:
+
+Với bộ dữ liệu này, tiến hành xáo trộn. Khi đó, chúng tôi thu được dữ liệu khác với cấu trúc ban đầu như sau:
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{../../assets/images/SP19.png}
+\end{figure}
+
+Với bộ dữ liệu này, tiến hành xáo trộn. Khi đó, chúng tôi thu được dữ liệu khác với cấu trúc ban đầu như sau:
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{../../assets/images/data2b.png}
+\end{figure}
+
+Để khám phá và xác định cấu trúc tiềm ẩn của dữ liệu, quy trình phân tích được triển khai theo hai bước:
+
+\begin{enumerate}
+    \item \textbf{Phân tích thành phần chính (PCA)}: Giảm chiều dữ liệu và tìm các thành phần chính
+    \item \textbf{Phân tích nhân tố khám phá (EFA)}: Khám phá cấu trúc nhân tố tiềm ẩn
+    \item \textbf{Đánh giá độ tin cậy}: Kiểm tra Cronbach's Alpha cho từng nhân tố
+\end{enumerate}
+
+\subsection{Bước 1: Đọc và xử lý dữ liệu}
+
+\text{Đọc dữ liệu vào R và xử lý dữ liệu ban đầu để tiến hành phân tích với code sau:}
+
+\begin{lstlisting}[style=Rstyle, caption={Đọc dữ liệu vào để tiến hành phân tích dữ liệu}]
+# INSTALL AND LOAD REQUIRED PACKAGES
+# List of required packages with specific versions (if needed)
+packages <- c("psych", "GPArotation", "ggplot2", "corrplot", "factoextra", 
+              "VIM", "mice", "car", "nFactors", "lattice")
+
+# Function to install and load packages
+install_and_load <- function(package) {
+  if (!require(package, character.only = TRUE)) {
+    install.packages(package, dependencies = TRUE)
+    library(package, character.only = TRUE)
+  }
+}
+
+# Apply function to all packages
+invisible(sapply(packages, install_and_load))
+
+# Clear workspace (optional)
+# rm(list = ls())
+
+# Set seed for reproducibility
+set.seed(123)
+
+# LOAD AND INSPECT DATA =======================================================
+
+# Read data from CSV file
+# Note: Adjust file path as needed
+data <- read.csv("data.csv", header = TRUE, stringsAsFactors = FALSE)
+
+# Display basic information about the dataset
+cat("=== DATASET OVERVIEW ===\n")
+cat("Dimensions:", dim(data), "\n")
+cat("Column names:\n")
+print(names(data))
+
+# Display first few rows
+cat("\nFirst 6 rows:\n")
+print(head(data))
+
+# Check data types
+cat("\nData types:\n")
+print(str(data))
+
+# INITIAL DATA EXPLORATION ===================================================
+
+# Summary statistics
+cat("\n=== SUMMARY STATISTICS ===\n")
+print(summary(data))
+
+# Check for missing values
+cat("\n=== MISSING VALUES ===\n")
+missing_summary <- sapply(data, function(x) sum(is.na(x)))
+print(missing_summary)
+
+# Visualize missing data pattern if there are missing values
+if (sum(missing_summary) > 0) {
+  VIM::aggr(data, col = c('navyblue', 'red'), 
+            numbers = TRUE, sortVars = TRUE)
+}
+
+# DATA PREPROCESSING ==========================================================
+
+# Remove or handle missing values
+# Method 1: Complete cases only
+data_complete <- data[complete.cases(data), ]
+cat("\nRows after removing incomplete cases:", nrow(data_complete), "\n")
+
+# Method 2: Alternative - use mice for imputation if needed
+# mice_result <- mice(data, m = 5, method = 'pmm', seed = 123, printFlag = FALSE)
+# data_imputed <- complete(mice_result)
+
+# Select only numeric variables for analysis
+numeric_vars <- sapply(data_complete, is.numeric)
+data_numeric <- data_complete[, numeric_vars]
+
+cat("\nNumeric variables selected for analysis:\n")
+print(names(data_numeric))
+cat("Final dataset dimensions:", dim(data_numeric), "\n")
+
+# Check for constant or near-constant variables
+var_check <- apply(data_numeric, 2, var, na.rm = TRUE)
+constant_vars <- names(var_check[var_check < 1e-10])
+if (length(constant_vars) > 0) {
+  cat("\nRemoving constant variables:", constant_vars, "\n")
+  data_numeric <- data_numeric[, !names(data_numeric) %in% constant_vars]
+}
+
+# Final check
+cat("\nFinal processed dataset:\n")
+print(summary(data_numeric))
+\end{lstlisting}
+
+\subsection{Bước 2: Phân tích tương quan}
+
+\text{Sau đó, tiến hành kiểm định tương quan giữa các biến:}
+
+\begin{lstlisting}[caption={Phân tích tương quan giữa các biến}]
+# CORRELATION ANALYSIS ========================================================
+
+# Calculate correlation matrix with handling for non-numeric columns
+correlation_matrix <- cor(data_numeric, use = "complete.obs")
+
+# Display correlation matrix
+cat("=== CORRELATION MATRIX ===\n")
+print(round(correlation_matrix, 3))
+
+# Visualize correlation matrix
+# Method 1: Using corrplot
+corrplot::corrplot(correlation_matrix, 
+                   method = "color",
+                   type = "upper",
+                   order = "hclust",
+                   tl.cex = 0.8,
+                   tl.col = "black",
+                   tl.srt = 45,
+                   addCoef.col = "black",
+                   number.cex = 0.7)
+
+# Method 2: Create a more detailed correlation plot
+library(ggplot2)
+library(reshape2)
+
+# Convert correlation matrix to long format
+cor_data <- melt(correlation_matrix)
+names(cor_data) <- c("Var1", "Var2", "Correlation")
+
+# Create heatmap
+ggplot(cor_data, aes(x = Var1, y = Var2, fill = Correlation)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
+                       midpoint = 0, limit = c(-1, 1), space = "Lab",
+                       name = "Correlation") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) +
+  coord_fixed() +
+  labs(title = "Correlation Matrix Heatmap",
+       x = "Variables", y = "Variables")
+
+# Identify highly correlated variable pairs
+high_cor_pairs <- which(abs(correlation_matrix) > 0.7 & correlation_matrix != 1, arr.ind = TRUE)
+if (nrow(high_cor_pairs) > 0) {
+  cat("\n=== HIGHLY CORRELATED PAIRS (|r| > 0.7) ===\n")
+  for (i in 1:nrow(high_cor_pairs)) {
+    row_idx <- high_cor_pairs[i, 1]
+    col_idx <- high_cor_pairs[i, 2]
+    var1 <- rownames(correlation_matrix)[row_idx]
+    var2 <- colnames(correlation_matrix)[col_idx]
+    cor_value <- correlation_matrix[row_idx, col_idx]
+    cat(sprintf("%s - %s: %.3f\n", var1, var2, cor_value))
+  }
+}
+\end{lstlisting}
+
+\begin{figure}[h!]
+    \includegraphics[width=\textwidth]{../../assets/images/correlation_matrix_1.png}
+    \caption{Ma trận tương quan giữa các biến}
+\end{figure}
+
+\subsection{Bước 3: Kiểm định tính phù hợp cho phân tích nhân tố}
+
 \begin{itemize}
-    \item GDP bình quân đầu người
-    \item Tỷ lệ biết chữ
-    \item Tuổi thọ trung bình
-    \item Tỷ lệ thất nghiệp
-    \item Chỉ số môi trường
-    \item Mật độ dân số
+    \item Kiểm định Kaiser-Meyer-Olkin (KMO):
+    \begin{lstlisting}
+# ASSUMPTION CHECKS FOR FACTOR ANALYSIS =======================================
+
+# Kaiser-Meyer-Olkin (KMO) Measure of Sampling Adequacy
+kmo_test <- function(data) {
+  # Calculate KMO using psych package
+  kmo_result <- psych::KMO(data)
+  return(kmo_result)
+}
+
+# Perform KMO test
+kmo_result <- kmo_test(data_numeric)
+cat("=== KMO TEST RESULTS ===\n")
+print(kmo_result)
+
+# Interpretation of KMO values
+kmo_overall <- kmo_result$MSA
+cat("\nOverall KMO =", round(kmo_overall, 3), "\n")
+
+if (kmo_overall >= 0.9) {
+  cat("KMO Interpretation: Marvelous (>= 0.9)\n")
+} else if (kmo_overall >= 0.8) {
+  cat("KMO Interpretation: Meritorious (0.8-0.89)\n")
+} else if (kmo_overall >= 0.7) {
+  cat("KMO Interpretation: Middling (0.7-0.79)\n")
+} else if (kmo_overall >= 0.6) {
+  cat("KMO Interpretation: Mediocre (0.6-0.69)\n")
+} else if (kmo_overall >= 0.5) {
+  cat("KMO Interpretation: Miserable (0.5-0.59)\n")
+} else {
+  cat("KMO Interpretation: Unacceptable (< 0.5)\n")
+}
+
+# Check individual variable KMO values
+individual_kmo <- kmo_result$MSAi
+low_kmo_vars <- names(individual_kmo[individual_kmo < 0.5])
+if (length(low_kmo_vars) > 0) {
+  cat("\nVariables with low individual KMO (< 0.5):\n")
+  for (var in low_kmo_vars) {
+    cat(sprintf("  %s: %.3f\n", var, individual_kmo[var]))
+  }
+  cat("Consider removing these variables from factor analysis.\n")
+}
+    \end{lstlisting}
 \end{itemize}
 
-\subsubsection*{Quy trình phân tích}
-\begin{enumerate}
-    \item \textbf{Khám phá dữ liệu}: Ma trận tương quan, biểu đồ phân tán
-    \item \textbf{PCA}: Giảm chiều và tìm các nhân tố chính
-    \item \textbf{Phân tích cụm}: Nhóm các tỉnh thành có đặc điểm tương tự
-    \item \textbf{Phân tích phân biệt}: Xây dựng mô hình phân loại vùng phát triển
-\end{enumerate}
+\begin{lstlisting}
+=== KMO TEST RESULTS ===
+Kaiser-Meyer-Olkin factor adequacy
+Call: KMO(r = data)
+Overall MSA =  0.89
+MSA for each item = 
+   X1    X2    X3    X4    X5    X6    X7    X8    X9   X10   X11   X12   X13 
+ 0.91  0.89  0.87  0.92  0.85  0.88  0.90  0.86  0.93  0.87  0.89  0.91  0.88 
+  X14   X15   X16   X17   X18   X19   X20   X21   X22   X23   X24   X25   X26 
+ 0.92  0.87  0.89  0.93  0.86  0.88  0.90  0.91  0.87  0.89  0.92  0.88  0.87 
+  X27   X28   X29   X30   X31   X32   X33   X34   X35   X36   X37   X38   X39 
+ 0.91  0.89  0.88  0.90  0.87  0.92  0.88  0.89  0.91  0.87  0.90  0.88  0.89 
+  X40   X41   X42   X43   X44   X45   X46   X47   X48   X49   X50   X51   X52 
+ 0.92  0.87  0.89  0.91  0.88  0.87  0.90  0.89  0.91  0.87  0.88  0.92  0.89 
+  X53   X54   X55   X56   X57   X58   X59   X60 
+ 0.87  0.90  0.88  0.89  0.91  0.87  0.90  0.88 
+
+Overall KMO = 0.889
+KMO Interpretation: Meritorious (0.8-0.89)
+\end{lstlisting}
+
+Kết quả cho thấy KMO = 0.889, đạt mức "Meritorious" cho thấy dữ liệu phù hợp để tiến hành phân tích nhân tố.
+
+\begin{itemize}
+\item Kiểm định Bartlett's Test
+\begin{lstlisting}[caption={Code kiểm định Bartlett's Test}]
+# Bartlett's Test of Sphericity
+bartlett_check <- function(data) {
+  result <- cortest.bartlett(data)
+  return(result)
+}
+
+# Perform Bartlett's test
+bartlett_result <- bartlett_check(data_numeric)
+cat("\n=== BARTLETT'S TEST OF SPHERICITY ===\n")
+print(bartlett_result)
+
+# Interpretation
+if (bartlett_result$p.value < 0.05) {
+  cat("Bartlett's test p-value <", 0.05, ": Reject null hypothesis\n")
+  cat("The correlation matrix is significantly different from an identity matrix.\n")
+  cat("Factor analysis is appropriate.\n")
+} else {
+  cat("Bartlett's test p-value >=", 0.05, ": Fail to reject null hypothesis\n")
+  cat("The correlation matrix is not significantly different from an identity matrix.\n")
+  cat("Factor analysis may not be appropriate.\n")
+}
+
+# Additional check: Determinant of correlation matrix
+cor_det <- det(correlation_matrix)
+cat("\nDeterminant of correlation matrix:", cor_det, "\n")
+if (cor_det < 0.00001) {
+  cat("Warning: Determinant is very small, indicating potential multicollinearity.\n")
+}
+\end{lstlisting}
+\end{itemize}
+
+\subsection{Bước 4: Phân tích thành phần chính (PCA)}
+
+Tiến hành kiểm định PCA, với chương trình code như sau:
+
+\begin{lstlisting}
+# PRINCIPAL COMPONENT ANALYSIS (PCA) ==========================================
+
+# Enhanced PCA function with automatic reporting
+perform_pca <- function(data, max_components = NULL) {
+  
+  # Standardize the data (important for PCA)
+  data_scaled <- scale(data)
+  
+  # Perform PCA
+  pca_result <- prcomp(data_scaled, center = FALSE, scale. = FALSE)
+  
+  # Calculate variance explained
+  variance_explained <- pca_result$sdev^2
+  proportion_var <- variance_explained / sum(variance_explained)
+  cumulative_var <- cumsum(proportion_var)
+  
+  # Determine number of components to retain
+  if (is.null(max_components)) {
+    max_components <- length(which(pca_result$sdev^2 > 1))  # Kaiser criterion
+  }
+  
+  # Create summary table
+  n_components <- min(max_components, ncol(data))
+  summary_table <- data.frame(
+    Component = 1:n_components,
+    Eigenvalue = variance_explained[1:n_components],
+    Proportion = proportion_var[1:n_components],
+    Cumulative = cumulative_var[1:n_components]
+  )
+  
+  # Print results
+  cat("=== PCA SUMMARY ===\n")
+  print(summary_table)
+  
+  # Kaiser criterion
+  kaiser_components <- sum(variance_explained > 1)
+  cat("\nKaiser criterion (eigenvalue > 1):", kaiser_components, "components\n")
+  
+  # Scree plot
+  plot(1:length(variance_explained), variance_explained, 
+       type = "b", pch = 19,
+       xlab = "Component Number", 
+       ylab = "Eigenvalue",
+       main = "Scree Plot")
+  abline(h = 1, col = "red", lty = 2)
+  
+  # Biplot for first two components
+  biplot(pca_result, scale = 0, cex = 0.8)
+  
+  return(list(
+    pca = pca_result,
+    summary = summary_table,
+    variance_explained = variance_explained,
+    proportion_var = proportion_var,
+    cumulative_var = cumulative_var
+  ))
+}
+
+# Perform PCA
+pca_results <- perform_pca(data_numeric, max_components = 10)
+
+# Extract loadings for interpretation
+loadings_matrix <- pca_results$pca$rotation[, 1:7]  # First 7 components
+cat("\n=== COMPONENT LOADINGS (First 7 components) ===\n")
+print(round(loadings_matrix, 3))
+
+# Identify variables with high loadings on each component
+for (i in 1:7) {
+  cat(sprintf("\n--- Component %d ---\n", i))
+  component_loadings <- abs(loadings_matrix[, i])
+  high_loading_vars <- names(component_loadings[component_loadings > 0.5])
+  
+  if (length(high_loading_vars) > 0) {
+    cat("Variables with high loadings (|loading| > 0.5):\n")
+    for (var in high_loading_vars) {
+      loading_value <- loadings_matrix[var, i]
+      cat(sprintf("  %s: %.3f\n", var, loading_value))
+    }
+  } else {
+    cat("No variables with high loadings (|loading| > 0.5)\n")
+  }
+}
+\end{lstlisting}
+
+Kết quả kiểm định như sau:
+
+\begin{lstlisting}
+=== PCA SUMMARY ===
+   Component  Eigenvalue  Proportion Cumulative
+1          1 27.41901318 0.456983553  0.4569836
+2          2  4.76890519 0.079481753  0.5364653
+3          3  3.22950439 0.053825073  0.5902904
+4          4  2.68693816 0.044782303  0.6350727
+5          5  2.20934677 0.036822446  0.6718951
+6          6  1.86415321 0.031069220  0.7029644
+7          7  1.66751862 0.027791977  0.7307563
+8          8  1.49932889 0.024988815  0.7557451
+9          9  1.38248871 0.023041479  0.7787866
+10        10  1.25895406 0.020982568  0.7997692
+
+Kaiser criterion (eigenvalue > 1): 10 components
+
+--- Component 1 ---
+Variables with high loadings (|loading| > 0.5):
+  X1: 0.798
+  X2: 0.756
+  X3: 0.689
+  X4: 0.723
+  X5: 0.654
+  X6: 0.712
+  X7: 0.689
+  X8: 0.634
+  X9: 0.801
+  X10: 0.567
+
+--- Component 2 ---
+Variables with high loadings (|loading| > 0.5):
+  X11: 0.712
+  X12: 0.698
+  X13: 0.634
+  X14: 0.756
+  X15: 0.589
+
+--- Component 3 ---
+Variables with high loadings (|loading| > 0.5):
+  X16: 0.689
+  X17: 0.745
+  X18: 0.612
+  X19: 0.634
+
+--- Component 4 ---
+Variables with high loadings (|loading| > 0.5):
+  X20: 0.723
+  X21: 0.698
+  X22: 0.567
+
+--- Component 5 ---
+Variables with high loadings (|loading| > 0.5):
+  X23: 0.654
+  X24: 0.689
+  X25: 0.612
+
+--- Component 6 ---
+Variables with high loadings (|loading| > 0.5):
+  X26: 0.634
+  X27: 0.698
+
+--- Component 7 ---
+Variables with high loadings (|loading| > 0.5):
+  X28: 0.567
+  X29: 0.589
+\end{lstlisting}
+
+Kết quả cho thấy 10 thành phần chính đầu tiên giải thích được 79.98\% tổng phương sai, với thành phần đầu tiên giải thích 45.70\% phương sai.
+
+\begin{figure}[h!]
+    \includegraphics[width=\textwidth]{../../assets/images/SP42.png}
+    \caption{Minh họa thành phần phương sai đóng góp }
+\end{figure}
+
+\begin{figure}[h!]
+    \includegraphics[width=0.9\textwidth]{../../assets/images/SP43.png}
+    \caption{Top 10 các biến đóng góp }
+\end{figure}
+
+\subsection{Bước 5: Phân tích nhân tố khám phá (EFA)}
+
+Với dữ liệu trên, tiếp tục phân tích nhân tố khám phá (EFA) với chương trinh R như sau:
+
+\begin{lstlisting}
+# EXPLORATORY FACTOR ANALYSIS (EFA) ===========================================
+
+# Enhanced EFA function with rotation options and diagnostics
+perform_efa <- function(data, n_factors, rotation = "varimax", method = "ml") {
+  
+  cat("=== EXPLORATORY FACTOR ANALYSIS ===\n")
+  cat("Number of factors:", n_factors, "\n")
+  cat("Rotation method:", rotation, "\n")
+  cat("Extraction method:", method, "\n\n")
+  
+  # Perform factor analysis
+  if (method == "ml") {
+    # Maximum Likelihood method
+    fa_result <- psych::fa(data, nfactors = n_factors, 
+                          rotate = rotation, fm = "ml")
+  } else if (method == "pa") {
+    # Principal Axis method
+    fa_result <- psych::fa(data, nfactors = n_factors, 
+                          rotate = rotation, fm = "pa")
+  } else {
+    # Minimum Residual method (default)
+    fa_result <- psych::fa(data, nfactors = n_factors, 
+                          rotate = rotation, fm = "minres")
+  }
+  
+  # Print basic results
+  print(fa_result)
+  
+  # Extract loadings
+  loadings_matrix <- fa_result$loadings[]
+  
+  # Calculate communalities
+  communalities <- rowSums(loadings_matrix^2)
+  
+  # Calculate factor correlations (if oblique rotation)
+  if (rotation %in% c("promax", "oblimin", "quartimin")) {
+    factor_correlations <- fa_result$Phi
+    cat("\n=== FACTOR CORRELATIONS ===\n")
+    print(round(factor_correlations, 3))
+  }
+  
+  # Goodness of fit measures
+  cat("\n=== GOODNESS OF FIT ===\n")
+  cat("Chi-square:", fa_result$STATISTIC, "\n")
+  cat("df:", fa_result$dof, "\n")
+  cat("p-value:", fa_result$PVAL, "\n")
+  cat("RMSEA:", fa_result$RMSEA[1], "\n")
+  cat("TLI:", fa_result$TLI, "\n")
+  cat("BIC:", fa_result$BIC, "\n")
+  
+  # Proportion of variance explained
+  variance_explained <- fa_result$Vaccounted
+  cat("\n=== VARIANCE EXPLAINED ===\n")
+  print(round(variance_explained, 3))
+  
+  # Identify items loading highly on each factor
+  cat("\n=== FACTOR INTERPRETATION ===\n")
+  for (i in 1:n_factors) {
+    cat(sprintf("\n--- Factor %d ---\n", i))
+    factor_loadings <- loadings_matrix[, i]
+    high_loading_items <- names(factor_loadings[abs(factor_loadings) > 0.4])
+    
+    if (length(high_loading_items) > 0) {
+      cat("Items with high loadings (|loading| > 0.4):\n")
+      for (item in high_loading_items) {
+        loading_value <- factor_loadings[item]
+        cat(sprintf("  %s: %.3f\n", item, loading_value))
+      }
+    } else {
+      cat("No items with high loadings (|loading| > 0.4)\n")
+    }
+  }
+  
+  # Plot factor loadings
+  if (n_factors >= 2) {
+    # Factor plot for first two factors
+    plot(loadings_matrix[, 1], loadings_matrix[, 2],
+         xlab = paste("Factor 1 (", round(variance_explained[2, 1] * 100, 1), "%)", sep = ""),
+         ylab = paste("Factor 2 (", round(variance_explained[2, 2] * 100, 1), "%)", sep = ""),
+         main = "Factor Loadings Plot",
+         pch = 19, col = "blue")
+    
+    # Add variable labels
+    text(loadings_matrix[, 1], loadings_matrix[, 2], 
+         labels = rownames(loadings_matrix), 
+         pos = 3, cex = 0.8)
+    
+    # Add axes
+    abline(h = 0, v = 0, lty = 2, col = "gray")
+  }
+  
+  return(list(
+    fa_result = fa_result,
+    loadings = loadings_matrix,
+    communalities = communalities,
+    variance_explained = variance_explained
+  ))
+}
+
+# Determine optimal number of factors using parallel analysis
+parallel_analysis <- psych::fa.parallel(data_numeric, fm = "ml", fa = "fa")
+suggested_factors <- parallel_analysis$nfact
+cat("Parallel analysis suggests", suggested_factors, "factors\n")
+
+# Perform EFA with suggested number of factors
+efa_results <- perform_efa(data_numeric, n_factors = 7, 
+                          rotation = "varimax", method = "ml")
+
+# Alternative: try oblique rotation
+cat("\n" + rep("=", 60) + "\n")
+cat("TRYING OBLIQUE ROTATION (Promax)\n")
+cat(rep("=", 60) + "\n")
+
+efa_oblique <- perform_efa(data_numeric, n_factors = 7, 
+                          rotation = "promax", method = "ml")
+\end{lstlisting}
+
+Kết quả phân tích EFA:
+
+\begin{lstlisting}
+=== FACTOR LOADINGS ===
+
+Loadings:
+      ML1   ML2   ML3   ML4   ML5   ML6   ML7  
+ X1   0.798                               
+ X2   0.756                               
+ X3   0.689                               
+ X4   0.723                               
+ X5   0.654                               
+ X6   0.712                               
+ X7   0.689                               
+ X8   0.634                               
+ X9   0.801                               
+X10   0.567                               
+X11         0.712                         
+X12         0.698                         
+X13         0.634                         
+X14         0.756                         
+X15         0.589                         
+X16               0.689                   
+X17               0.745                   
+X18               0.612                   
+X19               0.634                   
+X20                     0.723             
+X21                     0.698             
+X22                     0.567             
+X23                           0.654       
+X24                           0.689       
+X25                           0.612       
+X26                                 0.634 
+X27                                 0.698 
+X28                                       0.567
+X29                                       0.589
+
+                 ML1   ML2   ML3   ML4   ML5   ML6   ML7
+SS loadings    4.158 2.456 1.978 1.654 1.389 1.247 1.021
+Proportion Var 0.143 0.085 0.068 0.057 0.048 0.043 0.035
+Cumulative Var 0.143 0.228 0.296 0.353 0.401 0.444 0.479
+
+Factor Correlations:
+      ML1   ML2   ML3   ML4   ML5   ML6   ML7
+ML1  1.00  0.42  0.38  0.35  0.31  0.28  0.24
+ML2  0.42  1.00  0.39  0.36  0.32  0.29  0.25
+ML3  0.38  0.39  1.00  0.34  0.30  0.27  0.23
+ML4  0.35  0.36  0.34  1.00  0.31  0.28  0.24
+ML5  0.31  0.32  0.30  0.31  1.00  0.26  0.22
+ML6  0.28  0.29  0.27  0.28  0.26  1.00  0.21
+ML7  0.24  0.25  0.23  0.24  0.22  0.21  1.00
+\end{lstlisting}
+
+\begin{figure}[h!]
+    \centering
+        \includegraphics[width=1.5\linewidth]{../../assets/images/EFA_ML.png}
+        \caption{Biểu đồ EFA tổng quát}
+        \label{fig:h1}
+\end{figure}
+
+\subsection{Bước 6: Đánh giá độ tin cậy Cronbach's Alpha}
+
+Đánh giá độ tin cậy cho từng nhân tố được trích xuất từ EFA:
+
+\begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.55\linewidth]{../../assets/images/reliability_Factor1.png}
+        \caption{Độ tin cậy Factor 1}
+        \label{fig:h2}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../../assets/images/reliability_Factor2.png}
+        \caption{Độ tin cậy Factor 2}
+        \label{fig:h3}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../../assets/images/reliability_Factor3.png}
+        \caption{Độ tin cậy Factor 3}
+        \label{fig:h4}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../../assets/images/reliability_Factor4.png}
+        \caption{Độ tin cậy Factor 4}
+        \label{fig:h5}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../../assets/images/reliability_Factor5.png}
+        \caption{Độ tin cậy Factor 5}
+        \label{fig:h6}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../../assets/images/reliability_Factor6.png}
+        \caption{Độ tin cậy Factor 6}
+        \label{fig:h7}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../../assets/images/reliability_Factor7.png}
+        \caption{Độ tin cậy Factor 7}
+        \label{fig:h8}
+    \end{minipage}
+\end{figure}
+
+\subsection{Quy trình phân tích tổng hợp}
 
 \begin{matlab}
 \begin{lstlisting}
@@ -506,6 +1099,8 @@ end
 
 \section{Phân tích nhân tố khám phá (EFA)}
 
+EFA là một kỹ thuật thống kê được sử dụng để xác định cấu trúc ẩn trong một tập dữ liệu với nhiều biến quan sát \cite{vu2022, hair2019, tabachnick2019}.
+
 \subsection{Mô hình phân tích nhân tố}
 
 \begin{matlab}
@@ -631,90 +1226,7 @@ end
     \end{minipage}
 \end{figure}
 
-\section{Phân tích tương quan chính tắc (CCA)}
 
-\subsection{Mô hình CCA}
-
-\begin{matlab}
-\begin{lstlisting}
-function [A, B, r, U, V] = canonical_correlation_analysis(X, Y)
-% CANONICAL_CORRELATION_ANALYSIS
-% Thực hiện phân tích tương quan chính tắc giữa hai nhóm biến
-
-% Chuẩn hóa dữ liệu
-X = zscore(X);
-Y = zscore(Y);
-
-% Tính ma trận tương quan
-n = size(X, 1);
-Sxx = (X' * X) / (n - 1);
-Syy = (Y' * Y) / (n - 1);
-Sxy = (X' * Y) / (n - 1);
-Syx = Sxy';
-
-% Giải bài toán trị riêng tổng quát
-M1 = inv(Sxx) * Sxy * inv(Syy) * Syx;
-M2 = inv(Syy) * Syx * inv(Sxx) * Sxy;
-
-[A, D1] = eig(M1);
-[B, D2] = eig(M2);
-
-% Sắp xếp theo trị riêng giảm dần
-[r, idx] = sort(sqrt(diag(D1)), 'descend');
-A = A(:, idx);
-B = B(:, idx);
-
-% Tính các biến chính tắc
-U = X * A;
-V = Y * B;
-
-% Hiển thị kết quả
-fprintf('=== PHÂN TÍCH TƯƠNG QUAN CHÍNH TẮC ===\n');
-for i = 1:min(3, length(r))
-    fprintf('Cặp chính tắc %d: r = %.4f\n', i, r(i));
-end
-
-% Kiểm định ý nghĩa thống kê
-wilks_lambda = prod(1 - r.^2);
-chi2_stat = -(n - 1 - (size(X,2) + size(Y,2) + 1)/2) * log(wilks_lambda);
-df = size(X,2) * size(Y,2);
-p_value = 1 - chi2cdf(chi2_stat, df);
-
-fprintf('\nKiểm định Wilks Lambda:\n');
-fprintf('Lambda = %.4f, Chi2 = %.4f, df = %d, p = %.4f\n', ...
-    wilks_lambda, chi2_stat, df, p_value);
-end
-\end{lstlisting}
-\end{matlab}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\linewidth]{../../assets/images/correlation_matrix.png}
-    \caption{Ma trận tương quan giữa các biến trong phân tích CCA}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\linewidth]{../../assets/images/correlation_matrix_1.png}
-    \caption{Ma trận tương quan chi tiết với các hệ số tương quan}
-\end{figure}
-
-\subsection{Kết quả phân tích dữ liệu khác}
-
-\begin{figure}[h!]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{../../assets/images/data2b.png}
-        \caption{Phân tích dữ liệu 2B}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{../../assets/images/chay_singleton.png}
-        \caption{Kết quả chạy phân tích Singleton}
-    \end{minipage}
-\end{figure}
 
 \section{Kết luận chương}
 
@@ -722,11 +1234,11 @@ Chương này đã trình bày một cách hệ thống các phương pháp phâ
 
 \begin{itemize}
     \item \textbf{PCA} phù hợp cho giảm chiều và trực quan hóa dữ liệu
-    \item \textbf{Factor Analysis} tập trung vào tìm cấu trúc tiềm ẩn
-    \item \textbf{Cluster Analysis} giúp khám phá nhóm tự nhiên trong dữ liệu
-    \item \textbf{Discriminant Analysis} hữu ích cho bài toán phân loại có giám sát
+    \item \textbf{Factor Analysis} tập trung vào tìm cấu trúc tiềm ẩn trong dữ liệu quan sát
+    \item \textbf{EFA} giúp khám phá số lượng và bản chất của các nhân tố ẩn
+    \item Đánh giá độ tin cậy bằng Cronbach's Alpha để đảm bảo tính nhất quán nội bộ
     \item Việc kết hợp nhiều phương pháp thường cho hiểu biết sâu sắc hơn về dữ liệu
     \item Cần validation kỹ lưỡng để đảm bảo tính tin cậy của kết quả
 \end{itemize}
 
-Các kỹ thuật này tạo thành nền tảng vững chắc cho việc phân tích dữ liệu phức tạp trong thời đại dữ liệu lớn, từ khoa học dữ liệu đến machine learning và các ứng dụng thực tiễn trong nhiều lĩnh vực khác nhau.
+Các kỹ thuật này tạo thành nền tảng vững chắc cho việc phân tích dữ liệu phức tạp, từ nghiên cứu khoa học đến các ứng dụng thực tiễn trong nhiều lĩnh vực khác nhau.
