@@ -1,74 +1,332 @@
 \chapter{Kiến thức chuẩn bị}
-Nội dung này được tham khảo và tổng hợp từ các tài liệu tham khảo \cite{nguyen1999}, \cite{tran_nguyen1982} và \cite{casella2002}. 
+Nội dung chương này được tổng hợp và diễn giải lại từ các nguồn \cite{nguyen1999, tran_nguyen1982, casella2002} nhằm giúp người đọc nắm vững những khái niệm cốt lõi sẽ dùng ở các chương tiếp theo.
 
+\section{Không gian xác suất và biến ngẫu nhiên}
 
-\section{Mục 1 không có dấu chấm cuối dòng}
-\subsection{Tiểu mục 1 không có dấu chấm cuối dòng}
+\subsection{Không gian xác suất}
+\begin{dn}[Không gian xác suất]
+Một không gian xác suất là bộ $(\Omega,\,\mathcal{F},\,P)$, trong đó $\Omega$ là không gian mẫu, $\mathcal{F}$ là $\sigma$-đại số các biến cố và $P$ là độ đo xác suất trên $\mathcal{F}$ thỏa:
+\begin{itemize}
+    \item $P(A)\ge0$ với mọi $A\in\mathcal{F}$;
+    \item $P(\Omega)=1$;
+    \item Với dãy $\{A_i\}$ đôi một rời nhau: $P\!\left(\bigcup_{i\ge1}A_i\right)=\sum_{i\ge1}P(A_i)$.
+\end{itemize}
+\end{dn}
+\begin{tinhchat}
+Hệ quả cơ bản: $P(A^c)=1-P(A)$; nếu $A\subseteq B$ thì $P(A)\le P(B)$.
+\end{tinhchat}
 
-Mỗi đoạn diễn đạt cho mỗi ý bao gồm nhiều câu. Mỗi câu phải đầy đủ cú pháp: S + V + O (nếu có).
-
-Qua đoạn mới phải thụt đầu dòng bằng cách chừa 1 dòng trống trong Latex. Thông thường người ta rất hạn chế sử dụng $\setminus\setminus$ để xuống dòng. 
-\begin{dn}
- Nội dung định nghĩa viết vào đây
+\subsubsection*{Sự độc lập}
+\begin{dn}[Độc lập của biến cố]
+Hai biến cố $A,B\in\mathcal{F}$ được gọi là \emph{độc lập} nếu $P(A\cap B)=P(A)P(B)$. Một hệ $\{A_i\}$ là độc lập nếu mọi giao hữu hạn đều có xác suất bằng tích các xác suất thành phần.
 \end{dn}
 
-\[ \int_{x=0}^5 f_X (x) {\rm d}x=1 \]
-
-\begin{dn}
- Nội dung định nghĩa viết vào đây có thể sửa lại
-\end{dn}
-
-\begin{dl}
- Nội dung định lý viết vào đây   
+\subsubsection*{Xác suất toàn phần và công thức Bayes}
+\begin{dl}[Xác suất toàn phần]
+Nếu $\{B_i\}_{i\ge1}$ là một phân hoạch của $\Omega$ với $P(B_i)>0$ thì với mọi biến cố $A$ ta có
+\[
+P(A)=\sum_i P(A\mid B_i)\,P(B_i).
+\]
+\end{dl}
+\begin{dl}[Công thức Bayes]
+Với ký hiệu như trên, với mỗi $j$ thỏa $P(B_j)>0$ và $P(A)>0$,
+\[
+P(B_j\mid A)=\frac{P(A\mid B_j)\,P(B_j)}{\sum_i P(A\mid B_i)\,P(B_i)}.
+\]
 \end{dl}
 
-\cm{
-Nội dung CM viết vào đây.
-}
+\subsection{Biến ngẫu nhiên}
+\begin{dn}[Biến ngẫu nhiên]
+Biến ngẫu nhiên $X\!:\Omega\to\mathbb{R}$ là hàm đo được (tức $\{\omega: X(\omega)\le x\}\in\mathcal{F}$ với mọi $x\in\mathbb{R}$).
+\end{dn}
+Hai lớp thường gặp:
+\begin{itemize}
+    \item \textbf{Rời rạc}: $X$ nhận các giá trị $\{x_1,x_2,\ldots\}$ với hàm khối xác suất (PMF)
+    \[
+    p_X(x)=P(X=x),\quad p_X(x)\ge0,\quad \sum_x p_X(x)=1.
+    \]
+    \item \textbf{Liên tục}: tồn tại hàm mật độ (PDF) $f_X(x)\ge0$ sao cho với mọi $a<b$,
+    \[
+    P(a\le X\le b)=\int_a^b f_X(x)\,dx,\qquad \int_{-\infty}^{\infty} f_X(x)\,dx=1.
+    \]
+\end{itemize}
 
-\subsection{Tiểu mục 2}
-%%%%%%%%%Chèn bảng
+\subsection{Hàm phân phối tích luỹ (CDF)}
+\begin{dn}[Hàm phân phối]
+Hàm phân phối của $X$ là $F_X(x)=P(X\le x)$. Với $X$ rời rạc: $F_X(x)=\sum_{x_i\le x}p_X(x_i)$. Với $X$ liên tục có mật độ $f_X$, ta có $F_X'(x)=f_X(x)$ hầu khắp nơi.
+\end{dn}
 
-\begin{table}[ht]
-    \centering
-    \caption{Bảng điểm số của sinh viên}
-    \label{tab:diem_sinh_vien}
-    \begin{tabular}{|c|l|c|c|c|}
-    \hline
-     \textbf{STT} & \textbf{Họ và tên} & \textbf{Kiểm tra} & \textbf{Thi} & \textbf{Tổng điểm}\\
-      \hline
-     1 & Nguyễn Văn A & 8.5 & 7.0 & 7.5 \\
-      \hline
-     2 & Trần Thị B & 9.0 & 8.5 & 8.7 \\
-       \hline
-     3 & Lê Văn C & 7.5 & 8.0 & 7.8 \\
-       \hline
-    \end{tabular} 
-\end{table}
+\subsection{Kỳ vọng và phương sai}
+\[
+\mathbb{E}[X]=\begin{cases} \sum_x x\,p_X(x), & \text{rời rạc},\\[4pt]
+\int_{-\infty}^{\infty} x\,f_X(x)\,dx, & \text{liên tục}, \end{cases}
+\qquad \Var(X)=\mathbb{E}\big[(X-\mathbb{E}X)^2\big].
+\]
+\begin{tinhchat}
+$\mathbb{E}(aX+b)=a\mathbb{E}X+b$; nếu $X,Y$ độc lập thì $\Var(X+Y)=\Var(X)+\Var(Y)$.
+\end{tinhchat}
 
-%%%%%%%%%%%%%Bảng tài liệu tham khảo
-\begin{table}[ht]
-    \centering
-    \caption{Danh sách một số tài liệu tham khảo chính}
-    \label{tab:tai_lieu_tham_khao}
-    \begin{tabular}{|c|l|l|l|c|c|}
-		\hline
-		\textbf{STT} &\textbf{Tên bài báo} & \textbf{Tác giả} & \textbf{Tên tạp chí} &\textbf{Số} & \textbf{Năm} \\
-		\hline
-		1 & Phương pháp thống kê & Nguyễn Văn A & Tạp chí Thống kê & Vol. 15 & 2023 \\
-		\hline
-		2 & Kiểm định giả thuyết & Trần Thị B & Statistics Review & Vol. 8 & 2022 \\
-		\hline
-        3 & Phân tích dữ liệu đa biến & Lê Văn C & Data Analysis Journal & Vol. 12 & 2024 \\
-		\hline
-	\end{tabular}
-\end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% nội dung này có thể tham khảo giáo trình ĐSTT và HH2
-\section{Mục 2}
-\subsection{Tiểu mục 1}
+\subsubsection*{Hiệp phương sai và một số công thức quan trọng}
+\begin{dn}[Hiệp phương sai]
+Với hai đại lượng ngẫu nhiên khả tích $X,Y$, đặt $\Cov(X,Y)=\mathbb{E}\big[(X-\mathbb{E}X)(Y-\mathbb{E}Y)\big]$. Khi $X$ và $Y$ độc lập thì $\Cov(X,Y)=0$.
+\end{dn}
+\begin{dl}[Các công thức phương sai]
+\begin{lietke}
+  \item $\Var(X)=\mathbb{E}(X^2)-[\mathbb{E}(X)]^2$.
+  \item $\Var(aX)=a^2\Var(X)$ và $\Var(X+a)=\Var(X)$ với mọi hằng số $a$.
+  \item $\Var(X+Y)=\Var(X)+\Var(Y)+2\,\Cov(X,Y)$; đặc biệt, nếu $X$ và $Y$ độc lập thì $\Var(X+Y)=\Var(X)+\Var(Y)$.
+\end{lietke}
+\end{dl}
 
-\subsection{Tiểu mục 2}
+\section{Xác suất và kỳ vọng có điều kiện}
 
+\subsection{Xác suất có điều kiện}
+\begin{dn}[Xác suất có điều kiện]
+Với các biến cố $A,B$ và $P(A)>0$,
+\[
+P(B\mid A)=\frac{P(A\cap B)}{P(A)};\quad 0\le P(B\mid A)\le1,\; P(A\mid A)=1,\; P(B^c\mid A)=1-P(B\mid A).
+\]
+\end{dn}
 
+\subsection{Kỳ vọng có điều kiện}
+\begin{dn}[Kỳ vọng có điều kiện]
+Với biến cố $A$ có $P(A)>0$ và biến ngẫu nhiên khả tích $Y$,
+\[
+\mathbb{E}(Y\mid A)=\frac{1}{P(A)}\int_A Y\,dP.
+\]
+\end{dn}
+\begin{tinhchat}
+Tuyến tính theo hằng số; nếu $X$ độc lập với $A$ thì $\mathbb{E}(X\mid A)=\mathbb{E}X$; và tính tháp theo $\sigma$-đại số.
+\end{tinhchat}
 
+\section{Một số phân phối xác suất quan trọng}
+
+\subsection{Phân phối chuẩn}
+Biến ngẫu nhiên $X\sim\mathcal{N}(\mu,\sigma^2)$ nếu
+\[
+f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}\exp\!\left(-\,\frac{(x-\mu)^2}{2\sigma^2}\right),\; x\in\mathbb{R},\qquad \mathbb{E}X=\mu,\; \Var(X)=\sigma^2.
+\]
+
+\subsection{Phân phối Chi-bình phương}
+Nếu $Z_1,\ldots,Z_n\overset{i.i.d.}{\sim}\mathcal{N}(0,1)$ và $X=\sum_{i=1}^n Z_i^2$ thì $X\sim\chi^2(n)$. Mật độ
+\[
+f(x)=\begin{cases}\dfrac{e^{-x/2}x^{\frac{n}{2}-1}}{2^{n/2}\,\Gamma\!\left(\tfrac{n}{2}\right)}, & x>0,\\ 0, & x\le0.\end{cases}
+\]
+Với $X\sim\chi^2(n)$: $\mathbb{E}(X)=n$, $\Var(X)=2n$. Ký hiệu $\chi^2_{\alpha,n}$ là phân vị bậc $\alpha$.
+
+\paragraph{Phân vị Chi-bình phương}
+Giá trị $\chi^2_{\alpha,n}$ được xác định bởi $P\big(X\le \chi^2_{\alpha,n}\big)=\alpha$ với $X\sim\chi^2(n)$. Các bảng phân vị thường dùng để thiết lập miền bác bỏ trong kiểm định phương sai.
+
+\subsection{Phân phối Student}
+Nếu $Z\sim\mathcal{N}(0,1)$ độc lập với $V\sim\chi^2(n)$ thì $T=\dfrac{Z}{\sqrt{V/n}}\sim t(n)$. Với $n>2$: $\mathbb{E}(T)=0$, $\Var(T)=\dfrac{n}{n-2}$.
+
+\subsection{Một vài phân phối cơ bản khác}
+\begin{itemize}
+    \item \textbf{Đều $U(a,b)$}: $f(x)=\dfrac{1}{b-a}$ trên $[a,b]$; $\mathbb{E}[X]=\dfrac{a+b}{2}$, $\Var(X)=\dfrac{(b-a)^2}{12}$.
+    \item \textbf{Bernoulli($p$)}: $P(X=1)=p$, $P(X=0)=1-p$; $\mathbb{E}[X]=p$, $\Var(X)=p(1-p)$.
+    \item \textbf{Nhị thức $\mathrm{B}(n,p)$}: $P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}$, $k=0,\ldots,n$; $\mathbb{E}[X]=np$, $\Var(X)=np(1-p)$.
+    \item \textbf{Poisson($\lambda$)}: $P(X=k)=e^{-\lambda}\dfrac{\lambda^k}{k!}$; $\mathbb{E}[X]=\Var(X)=\lambda$.
+    \item \textbf{Mũ ($\lambda>0$)}: $f(x)=\lambda e^{-\lambda x}$, $x\ge0$; $\mathbb{E}[X]=1/\lambda$, $\Var(X)=1/\lambda^2$.
+\end{itemize}
+
+\section{Định lý giới hạn trung tâm và luật số lớn}
+
+\subsection{Định lý giới hạn trung tâm (CLT)}
+\begin{dl}[Định lý giới hạn trung tâm cho dãy i.i.d.]
+Với $X_1,\ldots,X_n$ độc lập cùng phân phối, $\mathbb{E}(X_i)=\mu$, $\Var(X_i)=\sigma^2\in(0,\infty)$, đặt
+\[
+\overline{X}_n=\frac{1}{n}\sum_{i=1}^n X_i,\qquad Z_n=\frac{\sqrt{n}(\overline{X}_n-\mu)}{\sigma}.
+\]
+Khi $n\to\infty$, $Z_n\xrightarrow{\mathcal{D}}\mathcal{N}(0,1)$.
+\end{dl}
+
+\begin{dl}[CLT cho độc lập không đồng phân phối (điều kiện Lindeberg)]
+Giả sử $X_1,X_2,\ldots$ độc lập, $\mathbb{E}(X_i)=0$, $\Var(X_i)=\sigma_i^2<\infty$ và $s_n^2=\sum_{i=1}^n\sigma_i^2\to\infty$. Nếu với mọi $\varepsilon>0$,
+\[
+\lim_{n\to\infty}\frac{1}{s_n^2}\sum_{i=1}^n \mathbb{E}\Big[\,X_i^2\,\mathbf{1}_{\{|X_i|>\varepsilon s_n\}}\Big]=0,
+\]
+thì $\dfrac{1}{s_n}\sum_{i=1}^n X_i\xrightarrow{\mathcal{D}}\mathcal{N}(0,1)$.
+\end{dl}
+
+\subsection{Luật số lớn}
+\begin{dl}[Luật số lớn yếu]
+$\overline{X}_n\xrightarrow{P}\mu$ khi $n\to\infty$.
+\end{dl}
+\begin{dl}[Luật số lớn mạnh]
+$\overline{X}_n\xrightarrow{a.s.}\mu$ nếu các kỳ vọng hữu hạn.
+\end{dl}
+
+\section{Cơ sở của kiểm định giả thuyết}
+
+\subsection{Khái niệm chung}
+\begin{dn}[Bài toán kiểm định]
+Gồm hai giả thuyết: \textbf{$H_0$} (giả thuyết kiểm định) và \textbf{$H_1$} (giả thuyết thay thế). Ra quyết định dựa trên thống kê kiểm định, miền bác bỏ và mức ý nghĩa $\alpha$.
+\end{dn}
+
+Kiểm định giả thuyết là một phương pháp suy diễn thống kê nhằm đưa ra quyết định về một hoặc nhiều tham số của tổng thể dựa trên thông tin từ mẫu. Quá trình này bao gồm các bước:
+
+\begin{enumerate}
+    \item \textbf{Thiết lập giả thuyết}: Xác định $H_0$ (giả thuyết không) và $H_1$ (giả thuyết đối).
+    \item \textbf{Chọn mức ý nghĩa}: Thường là $\alpha = 0.05$, $0.01$ hoặc $0.10$.
+    \item \textbf{Xác định thống kê kiểm định}: Một hàm của mẫu có phân phối đã biết dưới $H_0$.
+    \item \textbf{Tính giá trị quan sát}: Tính giá trị của thống kê kiểm định từ dữ liệu mẫu.
+    \item \textbf{Ra quyết định}: So sánh với giá trị tới hạn hoặc tính p-value.
+\end{enumerate}
+
+\subsection{Sai lầm và lực kiểm định}
+\begin{tinhchat}
+- \textbf{Sai lầm loại I}: bác bỏ $H_0$ khi $H_0$ đúng; xác suất bằng $\alpha$.\\
+- \textbf{Sai lầm loại II}: chấp nhận $H_0$ khi $H_1$ đúng; xác suất là $\beta$.\\
+- \textbf{Lực kiểm định}: $1-\beta$.
+\end{tinhchat}
+
+Mối quan hệ giữa các loại sai lầm có thể được minh họa qua bảng sau:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Quyết định} & \textbf{$H_0$ đúng} & \textbf{$H_1$ đúng} \\
+\hline
+Chấp nhận $H_0$ & Đúng (xác suất $1-\alpha$) & Sai lầm loại II (xác suất $\beta$) \\
+\hline
+Bác bỏ $H_0$ & Sai lầm loại I (xác suất $\alpha$) & Đúng (xác suất $1-\beta$) \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{P-value và ý nghĩa thống kê}
+\begin{dn}[P-value]
+P-value là xác suất thu được một giá trị của thống kê kiểm định cực đoan ít nhất bằng giá trị quan sát được, giả sử $H_0$ là đúng.
+\end{dn}
+
+Quy tắc quyết định dựa trên p-value:
+\begin{itemize}
+    \item Nếu p-value $\leq \alpha$: bác bỏ $H_0$
+    \item Nếu p-value $> \alpha$: không bác bỏ $H_0$
+\end{itemize}
+
+\subsection{Ví dụ minh hoạ: kiểm định trung bình với phương sai biết trước}
+Giả sử $X_1,\ldots,X_n\overset{i.i.d.}{\sim}\mathcal{N}(\mu,\sigma^2)$, $\sigma^2$ đã biết. Kiểm định
+\[
+H_0:\mu=\mu_0 \quad \text{vs.}\quad H_1:\mu\ne\mu_0.
+\]
+Đặt thống kê kiểm định
+\[
+Z=\frac{\sqrt{n}(\overline{X}_n-\mu_0)}{\sigma} \sim \mathcal{N}(0,1)\;\text{dưới } H_0.
+\]
+Với mức ý nghĩa $\alpha$, miền bác bỏ hai phía là $\{|Z|>z_{1-\alpha/2}\}$, trong đó $z_{1-\alpha/2}$ là phân vị tương ứng của chuẩn tắc. Lực kiểm định có thể tính tường minh dưới $H_1$ nhờ phân phối chuẩn lệch tâm của $Z$.
+
+\subsubsection*{Ví dụ số cụ thể}
+Một nhà máy sản xuất pin với tuổi thọ trung bình được quảng cáo là 500 giờ. Để kiểm tra, ta lấy mẫu 25 viên pin và đo được tuổi thọ trung bình mẫu là $\overline{x} = 485$ giờ. Biết rằng độ lệch chuẩn tổng thể $\sigma = 40$ giờ. Với mức ý nghĩa $\alpha = 0.05$, hãy kiểm định xem tuổi thọ trung bình có khác 500 giờ không?
+
+\textbf{Giải:}
+\begin{itemize}
+    \item $H_0: \mu = 500$ vs $H_1: \mu \neq 500$
+    \item Thống kê kiểm định: $Z = \frac{\overline{X} - 500}{\sigma/\sqrt{n}} = \frac{485 - 500}{40/\sqrt{25}} = \frac{-15}{8} = -1.875$
+    \item Giá trị tới hạn: $z_{0.025} = 1.96$
+    \item Vì $|Z| = 1.875 < 1.96$, ta không bác bỏ $H_0$
+    \item P-value = $2P(Z \leq -1.875) \approx 0.061 > 0.05$
+\end{itemize}
+
+\textbf{Kết luận:} Không có bằng chứng thống kê để khẳng định tuổi thọ trung bình khác 500 giờ.
+
+\section{Phân phối Fisher và các ứng dụng}
+
+\subsection{Phân phối Fisher (F-distribution)}
+\begin{dn}[Phân phối F]
+Nếu $U \sim \chi^2(m)$ và $V \sim \chi^2(n)$ độc lập, thì 
+\[
+F = \frac{U/m}{V/n} \sim F(m,n)
+\]
+được gọi là phân phối Fisher với $m$ và $n$ bậc tự do.
+\end{dn}
+
+\begin{tinhchat}[Tính chất của phân phối F]
+\begin{itemize}
+    \item $F > 0$ với xác suất 1
+    \item Nếu $F \sim F(m,n)$ thì $1/F \sim F(n,m)$
+    \item Khi $n \to \infty$: $mF \xrightarrow{d} \chi^2(m)$
+    \item $\mathbb{E}[F] = \frac{n}{n-2}$ với $n > 2$
+    \item $\Var(F) = \frac{2n^2(m+n-2)}{m(n-2)^2(n-4)}$ với $n > 4$
+\end{itemize}
+\end{tinhchat}
+
+\subsection{Ứng dụng trong kiểm định tỷ số phương sai}
+Xét hai mẫu độc lập:
+\begin{itemize}
+    \item $X_1, \ldots, X_{n_1} \overset{i.i.d.}{\sim} \mathcal{N}(\mu_1, \sigma_1^2)$
+    \item $Y_1, \ldots, Y_{n_2} \overset{i.i.d.}{\sim} \mathcal{N}(\mu_2, \sigma_2^2)$
+\end{itemize}
+
+Để kiểm định $H_0: \sigma_1^2 = \sigma_2^2$ vs $H_1: \sigma_1^2 \neq \sigma_2^2$, ta sử dụng thống kê:
+\[
+F = \frac{S_1^2}{S_2^2} \sim F(n_1-1, n_2-1) \text{ dưới } H_0
+\]
+trong đó $S_1^2, S_2^2$ là phương sai mẫu hiệu chỉnh.
+
+\section{Khoảng tin cậy và ước lượng}
+
+\subsection{Khái niệm khoảng tin cậy}
+\begin{dn}[Khoảng tin cậy]
+Khoảng tin cậy $100(1-\alpha)\%$ cho tham số $\theta$ là khoảng ngẫu nhiên $[L, U]$ sao cho
+\[
+P(L \leq \theta \leq U) = 1-\alpha
+\]
+\end{dn}
+
+\subsection{Khoảng tin cậy cho trung bình}
+\subsubsection*{Trường hợp phương sai đã biết}
+Với $X_1, \ldots, X_n \overset{i.i.d.}{\sim} \mathcal{N}(\mu, \sigma^2)$, khoảng tin cậy $100(1-\alpha)\%$ cho $\mu$ là:
+\[
+\overline{X} \pm z_{1-\alpha/2} \frac{\sigma}{\sqrt{n}}
+\]
+
+\subsubsection*{Trường hợp phương sai chưa biết}
+Với $X_1, \ldots, X_n \overset{i.i.d.}{\sim} \mathcal{N}(\mu, \sigma^2)$, khoảng tin cậy $100(1-\alpha)\%$ cho $\mu$ là:
+\[
+\overline{X} \pm t_{1-\alpha/2, n-1} \frac{S}{\sqrt{n}}
+\]
+trong đó $S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \overline{X})^2$.
+
+\subsection{Khoảng tin cậy cho phương sai}
+Với mẫu từ phân phối chuẩn, khoảng tin cậy $100(1-\alpha)\%$ cho $\sigma^2$ là:
+\[
+\left[\frac{(n-1)S^2}{\chi^2_{1-\alpha/2, n-1}}, \frac{(n-1)S^2}{\chi^2_{\alpha/2, n-1}}\right]
+\]
+
+\section{Mở rộng: Các phương pháp Bootstrap}
+
+\subsection{Nguyên lý Bootstrap}
+Bootstrap là phương pháp lấy mẫu lại với hoàn lại từ mẫu gốc để ước lượng phân phối của các thống kê mẫu. Phương pháp này đặc biệt hữu ích khi không biết phân phối lý thuyết của thống kê quan tâm.
+
+\begin{dl}[Thuật toán Bootstrap cơ bản]
+Cho mẫu gốc $X_1, \ldots, X_n$ và thống kê quan tâm $T_n = T(X_1, \ldots, X_n)$:
+\begin{enumerate}
+    \item Lấy mẫu bootstrap $X_1^*, \ldots, X_n^*$ với hoàn lại từ mẫu gốc
+    \item Tính $T_n^* = T(X_1^*, \ldots, X_n^*)$
+    \item Lặp lại bước 1-2 $B$ lần để có $T_1^*, \ldots, T_B^*$
+    \item Sử dụng phân phối empirical của $\{T_b^*\}_{b=1}^B$ để ước lượng phân phối của $T_n$
+\end{enumerate}
+\end{dl}
+
+\subsection{Khoảng tin cậy Bootstrap}
+\subsubsection*{Phương pháp Percentile}
+Khoảng tin cậy $100(1-\alpha)\%$ cho $\theta$ được xác định bởi:
+\[
+\left[T^*_{(\alpha/2)}, T^*_{(1-\alpha/2)}\right]
+\]
+trong đó $T^*_{(p)}$ là phân vị thứ $p$ của phân phối bootstrap.
+
+\subsubsection*{Phương pháp Bias-Corrected and Accelerated (BCa)}
+Đây là cải tiến của phương pháp percentile, điều chỉnh độ lệch và tăng tốc:
+\[
+\left[T^*_{(\alpha_1)}, T^*_{(\alpha_2)}\right]
+\]
+với
+\[
+\alpha_1 = \Phi\left(\hat{z}_0 + \frac{\hat{z}_0 + z_{\alpha/2}}{1 - \hat{a}(\hat{z}_0 + z_{\alpha/2})}\right)
+\]
+\[
+\alpha_2 = \Phi\left(\hat{z}_0 + \frac{\hat{z}_0 + z_{1-\alpha/2}}{1 - \hat{a}(\hat{z}_0 + z_{1-\alpha/2})}\right)
+\]
+trong đó $\hat{z}_0$ là hệ số điều chỉnh độ lệch và $\hat{a}$ là hệ số tăng tốc.
