@@ -1,37 +1,145 @@
 \chapter*{DANH SÁCH KÝ HIỆU VÀ VIẾT TẮT}
 \addcontentsline{toc}{chapter}{DANH SÁCH KÝ HIỆU VÀ VIẾT TẮT}
 
-\section*{Ký hiệu toán học}
-\begin{tabular}{@{}ll@{}}
+\section*{Ký hiệu toán học cơ bản}
+\begin{longtable}{@{}p{3cm}p{10cm}@{}}
+\textbf{Ký hiệu} & \textbf{Ý nghĩa} \\
+\hline
+\endhead
+$\Omega$ & Không gian mẫu \\
+$\mathcal{F}$ & $\sigma$-đại số các biến cố \\
+$P$ & Độ đo xác suất \\
 $X, Y, Z$ & Biến ngẫu nhiên \\
-$x, y, z$ & Giá trị của biến ngẫu nhiên \\
-$f(x)$ & Hàm mật độ xác suất \\
-$F(x)$ & Hàm phân phối tích lũy \\
-$E[X]$ & Kỳ vọng của biến ngẫu nhiên $X$ \\
+$\mathbf{X}$ & Vector ngẫu nhiên \\
+$x, y, z$ & Giá trị quan sát của biến ngẫu nhiên \\
+$f_X(x)$ & Hàm mật độ xác suất (PDF) \\
+$F_X(x)$ & Hàm phân phối tích lũy (CDF) \\
+$F_n(x)$ & Hàm phân phối thực nghiệm (ECDF) \\
+$\mathbb{E}[X]$ & Kỳ vọng của biến ngẫu nhiên $X$ \\
 $\text{Var}(X)$ & Phương sai của biến ngẫu nhiên $X$ \\
-$\sigma$ & Độ lệch chuẩn \\
-$\mu$ & Trung bình mẫu \\
+$\text{Cov}(X,Y)$ & Hiệp phương sai giữa $X$ và $Y$ \\
+$\rho_{XY}$ & Hệ số tương quan giữa $X$ và $Y$ \\
+$\sigma$ & Độ lệch chuẩn tổng thể \\
+$\sigma^2$ & Phương sai tổng thể \\
+$\mu$ & Trung bình tổng thể \\
+$\boldsymbol{\mu}$ & Vector kỳ vọng \\
+$\boldsymbol{\Sigma}$ & Ma trận hiệp phương sai \\
+$\mathbf{R}$ & Ma trận tương quan \\
 $n$ & Kích thước mẫu \\
-$\alpha$ & Mức ý nghĩa \\
+$\overline{X}$ & Trung bình mẫu \\
+$S^2$ & Phương sai mẫu \\
+$S$ & Độ lệch chuẩn mẫu \\
+\end{longtable}
+
+\section*{Ký hiệu phân phối xác suất}
+\begin{longtable}{@{}p{3cm}p{10cm}@{}}
+\textbf{Ký hiệu} & \textbf{Ý nghĩa} \\
+\hline
+\endhead
+$\mathcal{N}(\mu,\sigma^2)$ & Phân phối chuẩn với trung bình $\mu$ và phương sai $\sigma^2$ \\
+$\mathcal{N}_p(\boldsymbol{\mu},\boldsymbol{\Sigma})$ & Phân phối chuẩn nhiều chiều \\
+$\chi^2(n)$ & Phân phối Chi-bình phương với $n$ bậc tự do \\
+$t(n)$ & Phân phối Student với $n$ bậc tự do \\
+$F(n_1,n_2)$ & Phân phối F với bậc tự do $(n_1,n_2)$ \\
+$\text{B}(n,p)$ & Phân phối nhị thức với tham số $n$ và $p$ \\
+$\text{Poisson}(\lambda)$ & Phân phối Poisson với tham số $\lambda$ \\
+$U(a,b)$ & Phân phối đều trên đoạn $[a,b]$ \\
+$\text{Exp}(\lambda)$ & Phân phối mũ với tham số $\lambda$ \\
+$\text{Gamma}(\alpha,\beta)$ & Phân phối Gamma với tham số hình dạng $\alpha$ và tỷ lệ $\beta$ \\
+\end{longtable}
+
+\section*{Ký hiệu kiểm định thống kê}
+\begin{longtable}{@{}p{3cm}p{10cm}@{}}
+\textbf{Ký hiệu} & \textbf{Ý nghĩa} \\
+\hline
+\endhead
+$H_0$ & Giả thuyết không (null hypothesis) \\
+$H_1$ & Giả thuyết đối (alternative hypothesis) \\
+$\alpha$ & Mức ý nghĩa (significance level) \\
 $\beta$ & Xác suất sai lầm loại II \\
-$H_0$ & Giả thuyết không \\
-$H_1$ & Giả thuyết đối \\
-$\chi^2$ & Phân phối Chi-bình phương \\
-$t$ & Phân phối Student \\
-$F$ & Phân phối Fisher \\
-$p$-value & Giá trị $p$ \\
-\end{tabular}
+$1-\beta$ & Lực kiểm định (power of test) \\
+$p$-value & Giá trị $p$ (probability value) \\
+$\chi^2_{\text{obs}}$ & Giá trị quan sát của thống kê Chi-bình phương \\
+$D_n$ & Thống kê Kolmogorov-Smirnov \\
+$O_i$ & Tần số quan sát (observed frequency) \\
+$E_i$ & Tần số kỳ vọng (expected frequency) \\
+$z_{\alpha}$ & Phân vị chuẩn tại mức $\alpha$ \\
+$t_{\alpha,n}$ & Phân vị Student tại mức $\alpha$ với $n$ bậc tự do \\
+$\chi^2_{\alpha,n}$ & Phân vị Chi-bình phương tại mức $\alpha$ với $n$ bậc tự do \\
+\end{longtable}
 
-\vspace{1cm}
+\section*{Ký hiệu phân tích nhiều chiều}
+\begin{longtable}{@{}p{3cm}p{10cm}@{}}
+\textbf{Ký hiệu} & \textbf{Ý nghĩa} \\
+\hline
+\endhead
+$\mathbf{A}$ & Ma trận các vector riêng trong PCA \\
+$\boldsymbol{\Lambda}$ & Ma trận chéo các trị riêng \\
+$\lambda_i$ & Trị riêng thứ $i$ \\
+$\mathbf{a}_i$ & Vector riêng thứ $i$ \\
+$Y_i$ & Thành phần chính thứ $i$ \\
+$\mathbf{L}$ & Ma trận tải nhân tố (factor loading matrix) \\
+$\mathbf{F}$ & Vector nhân tố chung \\
+$\boldsymbol{\epsilon}$ & Vector sai số cụ thể \\
+$\boldsymbol{\Psi}$ & Ma trận phương sai cụ thể \\
+$h_i^2$ & Phương sai chung (communality) của biến thứ $i$ \\
+$\psi_i$ & Phương sai cụ thể (specific variance) của biến thứ $i$ \\
+$KMO$ & Chỉ số Kaiser-Meyer-Olkin \\
+$MSA$ & Measure of Sampling Adequacy \\
+\end{longtable}
 
-\section*{Viết tắt}
-\begin{tabular}{@{}ll@{}}
-ĐSTT & Đại số thống kê \\
-HH & Hình học \\
+\section*{Ký hiệu hội tụ và giới hạn}
+\begin{longtable}{@{}p{3cm}p{10cm}@{}}
+\textbf{Ký hiệu} & \textbf{Ý nghĩa} \\
+\hline
+\endhead
+$\xrightarrow{P}$ & Hội tụ theo xác suất \\
+$\xrightarrow{a.s.}$ & Hội tụ hầu chắc chắn \\
+$\xrightarrow{\mathcal{D}}$ & Hội tụ theo phân phối \\
+$\Rightarrow$ & Hội tụ yếu (weak convergence) \\
+$\overset{d}{\approx}$ & Xấp xỉ theo phân phối \\
+$\overset{i.i.d.}{\sim}$ & Độc lập cùng phân phối \\
+$\mathbf{1}_A$ & Hàm chỉ báo của tập $A$ \\
+$\sup$ & Supremum (cận trên nhỏ nhất) \\
+$\inf$ & Infimum (cận dưới lớn nhất) \\
+\end{longtable}
+
+\section*{Viết tắt và thuật ngữ}
+\begin{longtable}{@{}p{4cm}p{9cm}@{}}
+\textbf{Viết tắt} & \textbf{Ý nghĩa} \\
+\hline
+\endhead
+\textbf{Lý thuyết xác suất} & \\
 LTXS & Lý thuyết xác suất \\
 TKTH & Thống kê toán học \\
-CDF & Cumulative Distribution Function \\
-PDF & Probability Density Function \\
+CLT & Central Limit Theorem (Định lý giới hạn trung tâm) \\
+LLN & Law of Large Numbers (Luật số lớn) \\
+CDF & Cumulative Distribution Function (Hàm phân phối tích lũy) \\
+PDF & Probability Density Function (Hàm mật độ xác suất) \\
+PMF & Probability Mass Function (Hàm khối xác suất) \\
+ECDF & Empirical Cumulative Distribution Function \\
+\\
+\textbf{Kiểm định thống kê} & \\
+GOF & Goodness of Fit (Kiểm định tính phù hợp) \\
+K-S & Kolmogorov-Smirnov \\
+MRF & Markov Random Field \\
+\\
+\textbf{Phân tích nhiều chiều} & \\
+PCA & Principal Component Analysis (Phân tích thành phần chính) \\
+FA & Factor Analysis (Phân tích nhân tố) \\
+EFA & Exploratory Factor Analysis (Phân tích nhân tố khám phá) \\
+CFA & Confirmatory Factor Analysis (Phân tích nhân tố khẳng định) \\
+KMO & Kaiser-Meyer-Olkin \\
+MSA & Measure of Sampling Adequacy \\
+ML & Maximum Likelihood (Cực đại hóa likelihood) \\
+\\
+\textbf{Công cụ và phần mềm} & \\
 MATLAB & Matrix Laboratory \\
-CTU & Can Tho University \\
-\end{tabular}
+SPSS & Statistical Package for the Social Sciences \\
+SAS & Statistical Analysis System \\
+\\
+\textbf{Tổ chức} & \\
+CTU & Can Tho University (Trường Đại học Cần Thơ) \\
+ĐHCT & Đại học Cần Thơ \\
+KHTN & Khoa Học Tự Nhiên \\
+\end{longtable}
